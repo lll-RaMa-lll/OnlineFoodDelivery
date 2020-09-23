@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.usersignup{
+  background-image: url('./assets/pexels-pixabay-461198.jpg');
+  background-repeat: 'no-repeat';
+  background-size: 'cover';
+  height: 700px;
+}

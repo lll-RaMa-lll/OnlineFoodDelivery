@@ -1,5 +1,7 @@
 require('dotenv').config();
 const User_customer = require("../models/user_customer");
+const User_restaurant = require("../models/user_restaurant");
+const User_valet = require("../models/user_valet")
 const {
     check,
     validationResult
@@ -24,10 +26,12 @@ exports.signup = (req, res) => {
     }
     else if (req.body.userType == "restaurant") {
         req.body.userType = undefined;
+        user = new User_restaurant(req.body)
         ;
     }
     else if (req.body.userType == "valet") {
         req.body.userType = undefined;
+        user = new User_valet(req.body);
         ;
     }
     else {

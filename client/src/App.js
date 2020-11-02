@@ -1,6 +1,8 @@
 import React,{Component} from "react";
 import "./index.css";
-import {Form} from './components/Form'
+import {UserCustomerSignUpForm} from './components/signup-forms/UserCustomerSignUpForm'
+import {UserRestaurantSignUpForm} from './components/signup-forms/UserRestaurantSignUpForm'
+import {UserValetSignUpForm} from './components/signup-forms/UserValetSignUpForm'
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
@@ -21,7 +23,9 @@ class  App extends Component{
         <div className='base-class'>
         <Switch>
           {/* <Route path='/userSignup' exact component={()=><Form className='usersignup'/>} /> */}
-          <Route path='/userSignup' exact component={Form} />
+          <Route path='/user-customer-signup' exact component={UserCustomerSignUpForm} />
+          <Route path='/user-restaurant-signup' exact component={UserRestaurantSignUpForm} />
+          <Route path='/user-valet-signup' exact component={UserValetSignUpForm} />
           <Route path='/success' exact component={Finished} />
         </Switch>
         </div>

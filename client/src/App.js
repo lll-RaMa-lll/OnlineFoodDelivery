@@ -20,7 +20,8 @@ class  App extends Component{
       <Router>
         <div className='base-class'>
         <Switch>
-          <Route path='/userSignup' exact component={()=><Form className='usersignup'/>} />
+          {/* <Route path='/userSignup' exact component={()=><Form className='usersignup'/>} /> */}
+          <Route path='/userSignup' exact component={Form} />
           <Route path='/success' exact component={Finished} />
         </Switch>
         </div>

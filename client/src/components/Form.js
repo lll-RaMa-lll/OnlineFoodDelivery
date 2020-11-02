@@ -1,5 +1,48 @@
-import React,{Component} from 'react'
 
+
+import React,{Component} from 'react'
+import {ThemeProvider,createMuiTheme} from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Image from '../assets/pexels-pixabay-461198.jpg'
+import Paper from '@material-ui/core/Paper'
+
+
+import SaveIcon from '@material-ui/icons/Save'
+import MenuIcon from '@material-ui/icons/Menu';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import { orange } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
+
+
+
+
+
+const styles = {
+    paperContainer: {
+        backgroundImage: `url(${Image})`,
+        backgroundRepeat: `no-repeat`,
+        height: 700,
+        backgroundSize:  `cover`
+    },
+    textCenter:{
+        display:'flex',
+        justifyContent:'center'
+    }
+};
+
+const theme=createMuiTheme({
+    palette:{
+        primary:{
+            main: green[500]
+        }
+    }
+
+})
 
 
 
@@ -16,7 +59,8 @@ class Form extends Component{
             username:'',
             phone: '',
             password: '',
-            reEnteredPassword: ''
+            reEnteredPassword: '',
+            errorMessage:''
 
         }
 
@@ -35,14 +79,22 @@ class Form extends Component{
 
     submitHandler= event=>{
         event.preventDefault()
-        console.log('submitting!')
+        // console.log('submitting!')
         const {email,username,phone,password,reEnteredPassword}=this.state
 
-        
-        
+        // console.log(password,reEnteredPassword)
+        if(password!==reEnteredPassword){
+            this.setState({
+                errorMessage:'Your passwords are not matching'
+            })
+            return
+        }
+
         let submit=async () => {
             let obj={userType:'customer',name:username,email,phone,password}
-            const rawResponse = await fetch('http://localhost:15000/api/signup', {
+            const {REACT_APP_API_URL}=process.env
+            
+            const rawResponse = await fetch(`${REACT_APP_API_URL}/api/signup`, {
               method: 'POST',
               headers: {
                 // 'Accept': 'application/json',
@@ -53,103 +105,128 @@ class Form extends Component{
             });
             console.log(JSON.stringify(obj))
             const content = await rawResponse.json();
+            if('error' in content){
+                this.setState({
+                    errorMessage:content.error
+                })
+            }
+            else{
+                this.props.history.push('/success')
+            }
+            
             console.log(content)
-
-            this.props.history.push('/success')
 
 
         }
 
         submit()
 
+        
 
 
     }
+
+
 
     render(){
-        const {email,username,phone,password,reEnteredPassword}=this.state
-        // const style={
-        //     display: flex,
-        //     justyContent: center
-        // }
-
-        console.log(this.state)
-        
+        let {errorMessage}=this.state
         return (
-        
-            <div className={this.props.className}>
-                <div >
-                <nav style={{ background: '#16ab34', textAlign:'center'}}>Your online food delivery service</nav>
-
-                <div style={{ display:'flex', justifyContent:'center'}}>
-                    <form >
-                        <input
+            <ThemeProvider theme={theme}>
+                <Paper style={styles.paperContainer}>
+                    <AppBar position="static">
+                        <Toolbar>
+                            <IconButton edge="start" color="inherit" aria-label="menu">
+                                <FastfoodIcon />
+                            </IconButton>
+                            <Typography variant="h6">
+                                Your online food delivery service
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <br/>
+                    <span style={styles.textCenter}>       
+                        <p style={{color:'#fc0303'}}>{errorMessage}</p>
+                    </span>
+                    <br/>
+                    <span style={styles.textCenter}>
+                        <TextField
                             type='email'
+                            variant='filled'
+                            label='Email'
                             name='email'
-                            // inputProps={{style: { textAlign: "right" }}}
-                            hintText='enter your email'
-                            // floatingLabelText='emali'
-                            onChange = {this.changeHandler}
-                            defaultValue= {email}
-                            id='outlined-basic'
-                            label='Outlined'
+                            onChange={this.changeHandler}
+                        
                         />
-                        <br/>
-                        <input
+                    </span>
+                    <br/>
+                    <span style={styles.textCenter}>
+                        <TextField
                             type='text'
                             name='username'
-                            hintText='enter your username'
-                            floatingLabelText='username'
-                            onChange = {this.changeHandler}
-                            defaultValue= {username}
+                            variant='filled'
+                            label='Name'
+                            onChange={this.changeHandler}
+                        
                         />
-                        <br/>
-                        <input
+                    </span>
+                    <br/>
+                    <span style={styles.textCenter}>
+                        <TextField
                             type='phone'
                             name='phone'
-                            hintText='enter your phone'
-                            floatingLabelText='phone'
-                            onChange = {this.changeHandler}
-                            defaultValue= {phone}
+                            label='Phone'
+                            onChange={this.changeHandler}
+                            variant='filled'
+                        
                         />
-                        <br/>
-                        <input
+                    </span>
+                    <br/>
+                    <span style={styles.textCenter}>
+                        <TextField
                             type='password'
                             name='password'
-                            hintText='enter your password'
-                            floatingLabelText='password'
-                            onChange = {this.changeHandler}
-                            defaultValue= {password}
+                            variant='filled'
+                            onChange={this.changeHandler}
+                            label='Password'
+                        
                         />
-                        <br/>
-                        <input
+                    </span>
+                    <br/>
+                    <span style={styles.textCenter}>
+                        <TextField
                             type='password'
                             name='reEnteredPassword'
-                            hintText='re enter your password'
-                            floatingLabelText='re-enter password'
-                            onChange = {this.changeHandler}
-                            defaultValue= {reEnteredPassword}
+                            variant='filled'
+                            onChange={this.changeHandler}
+                            label='Re Enter Password'
+                        
                         />
-                        <br/>
-                            <button
-                                label='Signup'
-                                primary={true}
-                                onClick={this.submitHandler}
-                            >signup   
-                            </button>
+                    </span>
+                    <br/>
+                    <span style={styles.textCenter}>       
+                        <Button
+                            color='primary'
+                            startIcon={<SaveIcon/>}
+                            variant='contained'
+                            onClick={this.submitHandler}
+                        >
+                            sing up
+                        </Button>
+                    </span>
+                    
 
-                    </form>
-                </div>
-                </div>
-            </div>
-                
-            
 
-            
-            
+
+                </Paper>
+
+            </ThemeProvider>
         )
-
     }
+
+
+    
+
+
 }
 
 export {Form}

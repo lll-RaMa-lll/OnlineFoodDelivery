@@ -27,11 +27,7 @@ const styles = {
         backgroundImage: `url(${Image})`,
         backgroundRepeat: `no-repeat`,
         height: "100vh",
-<<<<<<< HEAD:client/src/components/signup-forms/UserCustomerSignUpForm.js
-        backgroundSize:  `cover`
-=======
         backgroundSize: `cover`
->>>>>>> signin:client/src/components/Form.js
     },
     textCenter: {
         display: 'flex',
@@ -54,11 +50,7 @@ const theme = createMuiTheme({
 
 
 
-<<<<<<< HEAD:client/src/components/signup-forms/UserCustomerSignUpForm.js
-class UserCustomerSignUpForm extends Component{
-=======
-class Form extends Component {
->>>>>>> signin:client/src/components/Form.js
+class UserCustomerSignUpForm extends Component {
 
     constructor() {
         super()
@@ -151,15 +143,9 @@ class Form extends Component {
                             </Typography>
                         </Toolbar>
                     </AppBar>
-<<<<<<< HEAD:client/src/components/signup-forms/UserCustomerSignUpForm.js
-                    <br/>
-                    <span style={styles.textCenter}>       
-                        <p style={{color:'#ffffff'}}>{errorMessage}</p>
-=======
                     <br />
                     <span style={styles.textCenter}>
-                        <p style={{ color: '#fc0303' }}>{errorMessage}</p>
->>>>>>> signin:client/src/components/Form.js
+                        <p style={{ color: '#ffffff' }}>{errorMessage}</p>
                     </span>
                     <br />
                     <span style={styles.textCenter}>
@@ -243,8 +229,4 @@ class Form extends Component {
 
 }
 
-<<<<<<< HEAD:client/src/components/signup-forms/UserCustomerSignUpForm.js
-export {UserCustomerSignUpForm}
-=======
-export { Form }
->>>>>>> signin:client/src/components/Form.js
+export { UserCustomerSignUpForm }

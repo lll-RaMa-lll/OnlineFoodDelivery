@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 const crypto = require("crypto");
 const { v4: uuidv4 } = require('uuid');
+const Order = require('./order');
 
 var userCustomerSchema = new mongoose.Schema({
     name: {
@@ -33,7 +34,7 @@ var userCustomerSchema = new mongoose.Schema({
         default: []
     },
     orderlist: {
-        type: Array,
+        type: [Order.schema],
         default: []
     }
 },

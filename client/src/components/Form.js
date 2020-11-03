@@ -1,7 +1,7 @@
 
 
-import React,{Component} from 'react'
-import {ThemeProvider,createMuiTheme} from '@material-ui/core/styles'
+import React, { Component } from 'react'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -26,18 +26,18 @@ const styles = {
     paperContainer: {
         backgroundImage: `url(${Image})`,
         backgroundRepeat: `no-repeat`,
-        height: 700,
-        backgroundSize:  `cover`
+        height: "100vh",
+        backgroundSize: `cover`
     },
-    textCenter:{
-        display:'flex',
-        justifyContent:'center'
+    textCenter: {
+        display: 'flex',
+        justifyContent: 'center'
     }
 };
 
-const theme=createMuiTheme({
-    palette:{
-        primary:{
+const theme = createMuiTheme({
+    palette: {
+        primary: {
             main: green[500]
         }
     }
@@ -50,70 +50,70 @@ const theme=createMuiTheme({
 
 
 
-class Form extends Component{
+class Form extends Component {
 
-    constructor(){
+    constructor() {
         super()
-        this.state={
+        this.state = {
             email: '',
-            username:'',
+            username: '',
             phone: '',
             password: '',
             reEnteredPassword: '',
-            errorMessage:''
+            errorMessage: ''
 
         }
 
 
-        this.changeHandler=this.changeHandler.bind(this)
-        this.submitHandler=this.submitHandler.bind(this)
+        this.changeHandler = this.changeHandler.bind(this)
+        this.submitHandler = this.submitHandler.bind(this)
     }
-    changeHandler= event=>{
-        let nam= event.target.name
-        let val=event.target.value
+    changeHandler = event => {
+        let nam = event.target.name
+        let val = event.target.value
 
-        this.setState({[nam]:val})
+        this.setState({ [nam]: val })
     }
 
- 
 
-    submitHandler= event=>{
+
+    submitHandler = event => {
         event.preventDefault()
         // console.log('submitting!')
-        const {email,username,phone,password,reEnteredPassword}=this.state
+        const { email, username, phone, password, reEnteredPassword } = this.state
 
         // console.log(password,reEnteredPassword)
-        if(password!==reEnteredPassword){
+        if (password !== reEnteredPassword) {
             this.setState({
-                errorMessage:'Your passwords are not matching'
+                errorMessage: 'Your passwords are not matching'
             })
             return
         }
 
-        let submit=async () => {
-            let obj={userType:'customer',name:username,email,phone,password}
-            const {REACT_APP_API_URL}=process.env
-            
+        let submit = async () => {
+            let obj = { userType: 'customer', name: username, email, phone, password }
+            const { REACT_APP_API_URL } = process.env
+
             const rawResponse = await fetch(`${REACT_APP_API_URL}/api/signup`, {
-              method: 'POST',
-              headers: {
-                // 'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(obj)
+                method: 'POST',
+                headers: {
+                    // 'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
 
             });
             console.log(JSON.stringify(obj))
             const content = await rawResponse.json();
-            if('error' in content){
+            if ('error' in content) {
                 this.setState({
-                    errorMessage:content.error
+                    errorMessage: content.error
                 })
             }
-            else{
+            else {
                 this.props.history.push('/success')
             }
-            
+
             console.log(content)
 
 
@@ -121,15 +121,15 @@ class Form extends Component{
 
         submit()
 
-        
+
 
 
     }
 
 
 
-    render(){
-        let {errorMessage}=this.state
+    render() {
+        let { errorMessage } = this.state
         return (
             <ThemeProvider theme={theme}>
                 <Paper style={styles.paperContainer}>
@@ -143,11 +143,11 @@ class Form extends Component{
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    <br/>
-                    <span style={styles.textCenter}>       
-                        <p style={{color:'#fc0303'}}>{errorMessage}</p>
+                    <br />
+                    <span style={styles.textCenter}>
+                        <p style={{ color: '#fc0303' }}>{errorMessage}</p>
                     </span>
-                    <br/>
+                    <br />
                     <span style={styles.textCenter}>
                         <TextField
                             type='email'
@@ -155,10 +155,10 @@ class Form extends Component{
                             label='Email'
                             name='email'
                             onChange={this.changeHandler}
-                        
+
                         />
                     </span>
-                    <br/>
+                    <br />
                     <span style={styles.textCenter}>
                         <TextField
                             type='text'
@@ -166,10 +166,10 @@ class Form extends Component{
                             variant='filled'
                             label='Name'
                             onChange={this.changeHandler}
-                        
+
                         />
                     </span>
-                    <br/>
+                    <br />
                     <span style={styles.textCenter}>
                         <TextField
                             type='phone'
@@ -177,10 +177,10 @@ class Form extends Component{
                             label='Phone'
                             onChange={this.changeHandler}
                             variant='filled'
-                        
+
                         />
                     </span>
-                    <br/>
+                    <br />
                     <span style={styles.textCenter}>
                         <TextField
                             type='password'
@@ -188,10 +188,10 @@ class Form extends Component{
                             variant='filled'
                             onChange={this.changeHandler}
                             label='Password'
-                        
+
                         />
                     </span>
-                    <br/>
+                    <br />
                     <span style={styles.textCenter}>
                         <TextField
                             type='password'
@@ -199,21 +199,21 @@ class Form extends Component{
                             variant='filled'
                             onChange={this.changeHandler}
                             label='Re Enter Password'
-                        
+
                         />
                     </span>
-                    <br/>
-                    <span style={styles.textCenter}>       
+                    <br />
+                    <span style={styles.textCenter}>
                         <Button
                             color='primary'
-                            startIcon={<SaveIcon/>}
+                            startIcon={<SaveIcon />}
                             variant='contained'
                             onClick={this.submitHandler}
                         >
                             sing up
                         </Button>
                     </span>
-                    
+
 
 
 
@@ -224,9 +224,9 @@ class Form extends Component{
     }
 
 
-    
+
 
 
 }
 
-export {Form}
+export { Form }

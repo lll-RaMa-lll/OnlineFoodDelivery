@@ -6,7 +6,7 @@ const {
 } = require('express-validator');
 
 //Bringing controllers
-const { signup } = require("../controllers/auth");
+const { signup, signin } = require("../controllers/auth");
 
 //Setting routes
 router.post("/signup", [
@@ -18,6 +18,16 @@ router.post("/signup", [
         .matches(/[A-Z]/).withMessage("Password must contain atleast 1 Uppercase Letter")
         .matches(/[a-z]/).withMessage("Password must contain atleast 1 Lowercase Letter")
 ], signup);
+
+router.post("/signin", [
+    check('email').isLength({
+        min: 1
+    }).withMessage("Email id required")
+        .isEmail().withMessage("Invalid email id"),
+    check('password').isLength({
+        min: 1
+    }).withMessage("Password required")
+], signin);
 
 //Exporting routes
 module.exports = router;

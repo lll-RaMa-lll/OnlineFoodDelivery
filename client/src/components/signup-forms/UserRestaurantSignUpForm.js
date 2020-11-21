@@ -16,6 +16,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { lime } from '@material-ui/core/colors'
+import {Container} from '@material-ui/core'
 
 
 
@@ -31,6 +32,11 @@ const styles = {
     textCenter:{
         display:'flex',
         justifyContent:'center'
+    },
+    paper:{
+        backgroundColor:'',
+        width:300,
+        height:530
     }
 };
 
@@ -146,75 +152,79 @@ class UserRestaurantSignUpForm extends Component{
                         </Toolbar>
                     </AppBar>
                     <br/>
-                    <span style={styles.textCenter}>       
-                        <p style={{color:'#ffffff'}}>{errorMessage}</p>
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='email'
-                            variant='filled'
-                            label='Email'
-                            name='email'
-                            onChange={this.changeHandler}
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='text'
-                            name='username'
-                            variant='filled'
-                            label='Name'
-                            onChange={this.changeHandler}
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='phone'
-                            name='phone'
-                            label='Phone'
-                            onChange={this.changeHandler}
-                            variant='filled'
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='password'
-                            name='password'
-                            variant='filled'
-                            onChange={this.changeHandler}
-                            label='Password'
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='password'
-                            name='reEnteredPassword'
-                            variant='filled'
-                            onChange={this.changeHandler}
-                            label='Re Enter Password'
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>       
-                        <Button
-                            color='primary'
-                            startIcon={<SaveIcon/>}
-                            variant='contained'
-                            onClick={this.submitHandler}
-                        >
-                            sing up
-                        </Button>
-                    </span>
+                    <Container style={styles.textCenter}>
+                        <Paper style={styles.paper}>
+                            <span style={styles.textCenter}>       
+                                <p style={{color:'red'}}>{errorMessage}</p>
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='email'
+                                    variant='filled'
+                                    label='Email'
+                                    name='email'
+                                    onChange={this.changeHandler}
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='text'
+                                    name='username'
+                                    variant='filled'
+                                    label='Name'
+                                    onChange={this.changeHandler}
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='phone'
+                                    name='phone'
+                                    label='Phone'
+                                    onChange={this.changeHandler}
+                                    variant='filled'
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='password'
+                                    name='password'
+                                    variant='filled'
+                                    onChange={this.changeHandler}
+                                    label='Password'
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='password'
+                                    name='reEnteredPassword'
+                                    variant='filled'
+                                    onChange={this.changeHandler}
+                                    label='Re Enter Password'
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>       
+                                <Button
+                                    color='primary'
+                                    startIcon={<SaveIcon/>}
+                                    variant='contained'
+                                    onClick={this.submitHandler}
+                                >
+                                    sing up
+                                </Button>
+                            </span>
+                        </Paper>
+                    </Container>
                     
 
 

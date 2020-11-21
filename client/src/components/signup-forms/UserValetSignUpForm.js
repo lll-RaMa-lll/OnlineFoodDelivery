@@ -5,7 +5,7 @@ import {ThemeProvider,createMuiTheme} from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Image from '../../assets/kai-pilger-tL92LY152Sk-unsplash.jpg'
+import Image from '../../assets/orlova-maria-oMTlhdFUhdI-unsplash.jpg'
 import Paper from '@material-ui/core/Paper'
 
 
@@ -16,6 +16,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { purple } from '@material-ui/core/colors'
+import {Grid,Container} from '@material-ui/core'
 
 
 
@@ -26,11 +27,16 @@ const styles = {
         backgroundImage: `url(${Image})`,
         backgroundRepeat: `no-repeat`,
         height: "100vh",
-        backgroundSize:  `cover`
+        backgroundSize:  `cover`,
     },
     textCenter:{
         display:'flex',
         justifyContent:'center'
+    },
+    paper:{
+        backgroundColor:'',
+        width:300,
+        height:530,
     }
 };
 
@@ -146,75 +152,82 @@ class UserValetSignUpForm extends Component{
                         </Toolbar>
                     </AppBar>
                     <br/>
-                    <span style={styles.textCenter}>       
-                        <p style={{color:'#ffffff'}}>{errorMessage}</p>
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='email'
-                            variant='filled'
-                            label='Email'
-                            name='email'
-                            onChange={this.changeHandler}
+                    {/* <Grid container spacing={1} justify='center'> */}
+                    <Container style={styles.textCenter}>
+                        <Paper style={styles.paper}>
                         
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='text'
-                            name='username'
-                            variant='filled'
-                            label='Name'
-                            onChange={this.changeHandler}
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='phone'
-                            name='phone'
-                            label='Phone'
-                            onChange={this.changeHandler}
-                            variant='filled'
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='password'
-                            name='password'
-                            variant='filled'
-                            onChange={this.changeHandler}
-                            label='Password'
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>
-                        <TextField
-                            type='password'
-                            name='reEnteredPassword'
-                            variant='filled'
-                            onChange={this.changeHandler}
-                            label='Re Enter Password'
-                        
-                        />
-                    </span>
-                    <br/>
-                    <span style={styles.textCenter}>       
-                        <Button
-                            color='primary'
-                            startIcon={<SaveIcon/>}
-                            variant='contained'
-                            onClick={this.submitHandler}
-                        >
-                            sing up
-                        </Button>
-                    </span>
+                            <span style={styles.textCenter}>       
+                                <p style={{color:'red'}}>{errorMessage}</p>
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='email'
+                                    variant='filled'
+                                    label='Email'
+                                    name='email'
+                                    onChange={this.changeHandler}
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='text'
+                                    name='username'
+                                    variant='filled'
+                                    label='Name'
+                                    onChange={this.changeHandler}
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='phone'
+                                    name='phone'
+                                    label='Phone'
+                                    onChange={this.changeHandler}
+                                    variant='filled'
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='password'
+                                    name='password'
+                                    variant='filled'
+                                    onChange={this.changeHandler}
+                                    label='Password'
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='password'
+                                    name='reEnteredPassword'
+                                    variant='filled'
+                                    onChange={this.changeHandler}
+                                    label='Re Enter Password'
+                                
+                                />
+                            </span>
+                            <br/>
+                            <span style={styles.textCenter}>       
+                                <Button
+                                    color='primary'
+                                    startIcon={<SaveIcon/>}
+                                    variant='contained'
+                                    onClick={this.submitHandler}
+                                >
+                                    sing up
+                                </Button>
+                            </span>
+                        </Paper>
+                    </Container>
+                    {/* </Grid> */}
                     
 
 

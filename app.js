@@ -7,6 +7,7 @@ const cors = require("cors");
 
 //My Routes
 const authRoute = require("./routes/auth");
+const customerRoute=require("./routes/user_customer");
 
 //DB connection
 mongoose.connect(process.env.DATABASE, {
@@ -30,6 +31,7 @@ app.use(cors());
 
 //My Routes
 app.use("/api", authRoute);
+app.use("/api", customerRoute)
 
 //Starting server
 const port = process.env.SERVERPORT;

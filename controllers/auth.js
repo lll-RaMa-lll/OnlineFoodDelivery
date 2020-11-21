@@ -122,6 +122,7 @@ exports.signin = (req, res) => {
 
 exports.isSignedIn = expressJwt({
     secret: process.env.SECRET,
+    algorithms: ['HS256'],
     userProperty: "auth"
 });
 

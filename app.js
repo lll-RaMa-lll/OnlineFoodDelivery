@@ -23,7 +23,6 @@ mongoose.connect(process.env.DATABASE, {
         console.log("In catch SECTION");
     });
 
-
 const app = express();
 
 //middlewares

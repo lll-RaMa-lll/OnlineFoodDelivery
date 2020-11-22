@@ -10,6 +10,7 @@ const authRoute = require("./routes/auth");
 const restaurantRoute = require("./routes/restaurant");
 const customerRoute = require("./routes/user_customer");
 const valetRoute = require("./routes/user_valet");
+const foodRoutes = require("./routes/food");
 
 //DB connection
 mongoose.connect(process.env.DATABASE, {
@@ -36,6 +37,7 @@ app.use("/api", authRoute);
 app.use("/api", restaurantRoute);
 app.use("/api", customerRoute);
 app.use("/api", valetRoute);
+app.use("/api",foodRoutes);
 
 //Starting server
 const port = process.env.SERVERPORT;

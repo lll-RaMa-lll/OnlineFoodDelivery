@@ -136,6 +136,33 @@ exports.isAuthenticated = (req, res, next) => {
     next();
 }
 
+// exports.isCustomer = (req,res,next) => {
+//     if (req.profile.userType!=='customer'){
+//         return res.status(403).json({
+//             error:"Customer access is not granted"
+//         })
+//     }
+//     next()
+// }
+
+// exports.isRestaurant = (req,res,next) => {
+//     if (req.profile.userType!=='restaurant'){
+//         return res.status(403).json({
+//             error:"Restaurant access is not granted"
+//         })
+//     }
+//     next()
+// }
+
+// exports.isValet = (req,res,next) => {
+//     if (req.profile.userType!=='valet'){
+//         return res.status(403).json({
+//             error:"Valet access is not granted"
+//         })
+//     }
+//     next()
+// }
+
 exports.isAdmin = (req, res, next) => {
     if (!req.profile.admin) {
         return res.status(403).json({

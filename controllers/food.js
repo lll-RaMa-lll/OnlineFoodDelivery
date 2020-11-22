@@ -153,54 +153,24 @@ exports.updateFood = (req, res) => {
   });
 };
 
-//product listing
+//food listing
 
-exports.getAllProducts = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
-  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+exports.getFoodListForARestaurant = (req, res) => {
+    
+    let limit = req.query && req.query.limit ? parseInt(req.query.limit) : 8;
+    let sortBy = req.query && req.query.sortBy ? req.query.sortBy : "_id";
 
-  Product.find()
-    .select("-photo")
-    .populate("category")
-    .sort([[sortBy, "asc"]])
-    .limit(limit)
-    .exec((err, products) => {
-      if (err) {
-        return res.status(400).json({
-          error: "NO product FOUND"
-        });
-      }
-      res.json(products);
-    });
-};
-
-exports.getAllUniqueCategories = (req, res) => {
-  Product.distinct("category", {}, (err, category) => {
-    if (err) {
-      return res.status(400).json({
-        error: "NO category found"
+    Food.find({ restaurant: req.profile._id })
+      .populate("restaurant", "_id name")
+      .sort([[sortBy,"asc"]])
+      .limit(limit)
+      .exec((err, food) => {
+        if (err) {
+          return res.status(400).json({
+            error: "No Foods are available in this account"
+          });
+        }
+        return res.json(food);
       });
-    }
-    res.json(category);
-  });
-};
+  };
 
-exports.updateStock = (req, res, next) => {
-  let myOperations = req.body.order.products.map(prod => {
-    return {
-      updateOne: {
-        filter: { _id: prod._id },
-        update: { $inc: { stock: -prod.count, sold: +prod.count } }
-      }
-    };
-  });
-
-  Product.bulkWrite(myOperations, {}, (err, products) => {
-    if (err) {
-      return res.status(400).json({
-        error: "Bulk operation failed"
-      });
-    }
-    next();
-  });
-};

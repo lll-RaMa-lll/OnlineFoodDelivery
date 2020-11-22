@@ -7,7 +7,8 @@ const {
   getFood,
   getImage,
   updateFood,
-  deleteFood
+  deleteFood,
+  getFoodListForARestaurant
 } = require("../controllers/food");
 const { isSignedIn, isAuthenticated } = require("../controllers/auth");
 const { getRestaurantById } = require("../controllers/restaurant");
@@ -46,5 +47,7 @@ router.put(
 );
 
 //listing route
+router.get("/food/restaurant/:userId",getFoodListForARestaurant)
+
 
 module.exports = router;

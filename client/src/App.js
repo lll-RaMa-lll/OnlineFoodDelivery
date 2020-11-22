@@ -1,47 +1,51 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import "./index.css";
-import {UserCustomerSignUpForm} from './components/signup-forms/UserCustomerSignUpForm'
-import {UserRestaurantSignUpForm} from './components/signup-forms/UserRestaurantSignUpForm'
-import {UserValetSignUpForm} from './components/signup-forms/UserValetSignUpForm'
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { UserCustomerSignUpForm } from './components/signup-forms/UserCustomerSignUpForm'
+import { UserRestaurantSignUpForm } from './components/signup-forms/UserRestaurantSignUpForm'
+import { UserValetSignUpForm } from './components/signup-forms/UserValetSignUpForm'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './components/Home'
+import RestaurantDashboard from './components/restaurant/RestaurantDashboard'
+import MediaCard from "./components/common/foodCard";
 
+class App extends Component {
 
-class  App extends Component{
-
-  constructor(){
+  constructor() {
     super()
     // we will use redux for our state management
-    this.state={
+    this.state = {
 
     }
 
   }
 
-  render(){
+  render() {
     return (
       <Router>
         <div className='base-class'>
-        <Switch>
-          {/* <Route path='/userSignup' exact component={()=><Form className='usersignup'/>} /> */}
-          <Route path='/' exact component={Home} />
-          <Route path='/user-customer-signup' exact component={UserCustomerSignUpForm} />
-          <Route path='/user-restaurant-signup' exact component={UserRestaurantSignUpForm} />
-          <Route path='/user-valet-signup' exact component={UserValetSignUpForm} />
-          <Route path='/success' exact component={Finished} />
-        </Switch>
+          <Switch>
+            {/* <Route path='/userSignup' exact component={()=><Form className='usersignup'/>} /> */}
+            <Route path='/' exact component={Home} />
+            <Route path='/user-customer-signup' exact component={UserCustomerSignUpForm} />
+            <Route path='/user-restaurant-signup' exact component={UserRestaurantSignUpForm} />
+            <Route path='/user-valet-signup' exact component={UserValetSignUpForm} />
+            <Route path='/success' exact component={Finished} />
+            <Route path='/restaurant/home' exact component={RestaurantDashboard} />
+            <Route path='/card' exact component={MediaCard} />
+
+          </Switch>
         </div>
-      
+
       </Router>
     );
   }
-  
+
 }
 
 
-function Finished(){
+function Finished() {
   return (
-      <h1 style={{display:'flex',justifyContent:'center'}} >Account creation is successful!</h1>
+    <h1 style={{ display: 'flex', justifyContent: 'center' }} >Account creation is successful!</h1>
   )
 }
 

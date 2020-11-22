@@ -1,6 +1,9 @@
 require('dotenv').config();
 const User_customer = require("../models/user_customer");
 const User_restaurant = require('../models/user_restaurant');
+const _ = require("lodash");
+const formidable = require('formidable')
+const fs = require('fs')
 
 exports.getRestaurantById = (req, res, next, id) => {
     User_restaurant.findById(id).exec((err, restaurant) => {
@@ -35,22 +38,44 @@ exports.getAllRestaurants = (req, res) => {
     })
 }
 
-exports.updateRestaurant = (req, res) => {
-    const restaurant = req.profile;
-    restaurant.name = req.body.name ? req.body.name : restaurant.name;
-    restaurant.phone = req.body.phone ? req.body.phone : restaurant.phone;
-    restaurant.address = req.body.address ? req.body.address : restaurant.address;
-    restaurant.description = req.body.description ? req.body.description : restaurant.description;
-    restaurant.isAcceptingOrder = req.body.isAcceptingOrder ? req.body.isAcceptingOrder : restaurant.isAcceptingOrder;
 
-    // updatedRestaurant = new User_restaurant(restaurant);
-    restaurant.save((err, updatedRestaurant) => {
-        if (err) {
-            console.log(err);
-            return res.status(400).json({
-                error: "Unable to update restaurant"
-            });
+
+
+exports.updateRestaurant = (req, res) => {
+    let form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+  
+    form.parse(req, (err, fields, file) => {
+      if (err) {
+        return res.status(400).json({
+          error: "problem with image"
+        });
+      }
+  
+      //updation code
+      let restaurant = req.profile;
+      restaurant = _.extend(restaurant, fields);
+  
+      //handle file here
+      if (file.image) {
+        if (file.image.size > 3000000) {
+          return res.status(400).json({
+            error: "File size too big!"
+          });
         }
-        res.json(updatedRestaurant);
+        restaurant.image.data = fs.readFileSync(file.image.path);
+        restaurant.image.contentType = file.image.type;
+      }
+      // console.log(product);
+  
+      //save to the DB
+      restaurant.save((err, restaurant) => {
+        if (err) {
+          res.status(400).json({
+            error: "Updation of restaurant data failed"
+          });
+        }
+        res.json(restaurant);
+      });
     });
-}
+  };

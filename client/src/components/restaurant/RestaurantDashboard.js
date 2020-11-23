@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component ,useState,useEffect} from "react";
 import { styled, makeStyles } from '@material-ui/core/styles';
 import { Paper, GridList, Button, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { Home, AccountCircle, Fastfood, PowerSettingsNew, Height } from '@material-ui/icons';
@@ -57,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RestaurantDashboard() {
     const classes = useStyles();
-    return (<div>
+
+
+    return (
+    <div>
         <ThemeProvider theme={theme}>
             <Paper
                 className={classes.topbar}
@@ -97,6 +100,6 @@ export default function RestaurantDashboard() {
                 </Paper>
             </Paper>
         </ThemeProvider>
-    </div >
+    </div>
     );
 };

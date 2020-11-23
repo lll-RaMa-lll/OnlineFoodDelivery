@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import UserCustomerSignIn from './signin-forms/UserCustomerSignIn'
 import "react-responsive-modal/styles.css";
 import { Modal } from 'react-responsive-modal'
-import { Button, Paper, createMuiTheme, ThemeProvider } from '@material-ui/core'
+import { Button, Paper, createMuiTheme, ThemeProvider,Grid } from '@material-ui/core'
 import { Home, AccountCircle, Fastfood, PowerSettingsNew, Height } from '@material-ui/icons';
 import { styled, makeStyles } from '@material-ui/core/styles';
 import zomato from "../assets/zomato.png";
 import background from "../assets/background1.jpg";
+import MediaCard from './common/foodCard'
+
 
 
 const theme = createMuiTheme({
@@ -55,12 +57,44 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         color: "#FFF",
         borderBottom: "1px solid #FFF"
-    }
+    },
+    root: {
+        flexGrow: 1,
+      },
+      paper: {
+        height: 140,
+        width: 100,
+      },
+      control: {
+        padding: theme.spacing(2),
+      },
 }));
 
 export default function Homepage(props) {
     const classes = useStyles();
     const [openSignin, setOpenSignin] = useState(false)
+    const [restaurantList,setRestaurantList] = useState({restaurants:[]})
+
+    useEffect(() => {
+        let fetchMovies = async ()=>{
+            let api_url =`${process.env.REACT_APP_API_URL}/api/restaurant/all`
+            let response = await fetch(api_url)
+            console.log(response)
+            let data= await response.json()
+            console.log(data.restaurants)
+            console.log('yo')
+            setRestaurantList(pre=>({
+                ...pre,
+                restaurants:data.restaurants.map(v=><MediaCard name={v.name}/>
+                )
+            }))
+            console.log(restaurantList.restaurants)
+        }
+        fetchMovies()
+        
+    }, [])
+
+
     return (
         <div>
             <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
@@ -114,11 +148,24 @@ export default function Homepage(props) {
                         <Paper
                             className={classes.contentArea}>
                             <h1 className={classes.heading}>Order online</h1>
-                            Add here
+                            {/* <Grid container className={classes.root} spacing={2}>
+                                <Grid item xs={12}>
+                                    <Grid container justify="center" spacing={spacing}>
+                                    {[0, 1, 2].map((value) => (
+                                        <Grid key={value} item>
+                                        <Paper className={classes.paper} />
+                                        </Grid>
+                                    ))}
+                                    </Grid>
+                                </Grid>
+                            </Grid> */}
+                            {
+                                restaurantList.restaurants
+                            }
                         </Paper>
                     </Paper>
                 </ThemeProvider>
-            </div >
+            </div>
         </div>
     )
 }

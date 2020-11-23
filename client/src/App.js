@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Homepage from './components/Home'
 import RestaurantDashboard from './components/restaurant/RestaurantDashboard'
 import MediaCard from "./components/common/foodCard";
+import RestaurantHOme from "./components/restaurant/RestaurantHome"
+import ValetHome from "./components/valet/ValetHome"
 
 class App extends Component {
 
@@ -32,6 +34,8 @@ class App extends Component {
             <Route path='/success' exact component={Finished} />
             <Route path='/restaurant/home' exact component={RestaurantDashboard} />
             <Route path='/card' exact component={MediaCard} />
+            <Route path='/restaurant' exact component={RestaurantHOme} />
+            <Route path='/valet' exact component={ValetHome} />
 
           </Switch>
         </div>

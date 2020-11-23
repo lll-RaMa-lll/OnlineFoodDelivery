@@ -38,6 +38,20 @@ app.use("/api", customerRoute);
 app.use("/api", valetRoute);
 app.use("/api",foodRoutes);
 
+app.get("/",(req,res)=>{
+    res.redirect()
+})
+
+app.get("/sse-server",(req,res,next)=>{
+    res.status(200).set({
+        "connection": "keep-alive",
+        "cache-control": "no-cache",
+        "Content-Type" : "text/event-stream"
+    })
+
+    res.write(`data: Hello world!\n\n`)
+})
+
 //Starting server
 const port = process.env.SERVERPORT;
 app.listen(port, () => {

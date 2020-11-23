@@ -4,7 +4,7 @@ import { UserCustomerSignUpForm } from './components/signup-forms/UserCustomerSi
 import { UserRestaurantSignUpForm } from './components/signup-forms/UserRestaurantSignUpForm'
 import { UserValetSignUpForm } from './components/signup-forms/UserValetSignUpForm'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Home from './components/Home'
+import Homepage from './components/Home'
 import RestaurantDashboard from './components/restaurant/RestaurantDashboard'
 import MediaCard from "./components/common/foodCard";
 
@@ -25,7 +25,7 @@ class App extends Component {
         <div className='base-class'>
           <Switch>
             {/* <Route path='/userSignup' exact component={()=><Form className='usersignup'/>} /> */}
-            <Route path='/' exact component={Home} />
+            <Route path='/' exact component={Homepage} />
             <Route path='/user-customer-signup' exact component={UserCustomerSignUpForm} />
             <Route path='/user-restaurant-signup' exact component={UserRestaurantSignUpForm} />
             <Route path='/user-valet-signup' exact component={UserValetSignUpForm} />

@@ -1,8 +1,11 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import { Button, makeStyles, createMuiTheme, Grid, Paper } from '@material-ui/core'
 import { MoodSharp } from '@material-ui/icons';
 import BackRestaurant from '../../assets/back-restaurant.jpg'
 import Zomato from "../../assets/zomato.png"
+import UserCustomerSignIn from '../signin-forms/UserCustomerSignIn'
+import { Modal } from 'react-responsive-modal'
+
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -46,8 +49,12 @@ const useStyles = makeStyles({
 
 export default function ValetHome(props) {
     const classes = useStyles();
+    const [openSignin, setOpenSignin] = useState(false)
     return (
         <div className={classes.back}>
+            <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
+                <UserCustomerSignIn />
+            </Modal>
             <Paper className={classes.topBar}>
                 <img src={Zomato} style={{ height: "4em" }}></img>
                 <h1 className={classes.toptext}>Valets</h1>
@@ -75,6 +82,7 @@ export default function ValetHome(props) {
                     className={classes.button}
                     color='secondary'
                     variant='contained'
+                    onClick={() => setOpenSignin(true)}
                 >Sign In
                 </Button>
             </Grid>

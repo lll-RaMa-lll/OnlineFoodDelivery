@@ -5,6 +5,9 @@ import { Home, AccountCircle, Fastfood, PowerSettingsNew, Height } from '@materi
 import zomato from "../../assets/zomato.png";
 import background from "../../assets/background1.jpg";
 import { size } from "lodash";
+import MenuItem from "../common/menuItem";
+import OrderCard from "../common/orderCard";
+import Profile from "../common/profile";
 
 const theme = createMuiTheme({
     palette: {
@@ -38,15 +41,15 @@ const useStyles = makeStyles((theme) => ({
         color: "#FFF",
     },
     blank: {
-        padding: "1em 10em",
+        padding: "1em 10%",
         backgroundImage: `url(${background})`,
 
     },
     contentArea: {
         background: "#333",
         padding: "1em",
-        minHeight: "30em",
-        borderRadius: "2em"
+        minHeight: "40em",
+        borderRadius: "2em",
     },
     heading: {
         textAlign: "center",
@@ -94,6 +97,7 @@ export default function RestaurantDashboard() {
                 <Paper
                     className={classes.contentArea}>
                     <h1 className={classes.heading}>Your Orders</h1>
+                    <MenuItem></MenuItem><OrderCard></OrderCard><Profile></Profile>
                 </Paper>
             </Paper>
         </ThemeProvider>

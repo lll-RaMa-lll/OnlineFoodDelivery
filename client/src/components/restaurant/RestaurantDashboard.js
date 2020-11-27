@@ -1,4 +1,4 @@
-import React, { Component ,useState,useEffect} from "react";
+import React, { Component } from "react";
 import { styled, makeStyles } from '@material-ui/core/styles';
 import { Paper, GridList, Button, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { Home, AccountCircle, Fastfood, PowerSettingsNew, Height } from '@material-ui/icons';
@@ -23,7 +23,11 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
     topbar: {
         background: "#202020",
-        padding: "1em 10em"
+        padding: "1em 10em",
+        position: "fixed",
+        top: '0',
+        width: "100%",
+        zIndex: "1"
     },
     icon: {
         color: "#FFF",
@@ -32,7 +36,11 @@ const useStyles = makeStyles((theme) => ({
     },
     navbar: {
         background: "#FF5544",
-        padding: "1em 1em"
+        padding: "1em 1em",
+        position: "fixed",
+        top: "6em",
+        width: "100%",
+        zIndex: "2"
     },
     button: {
         background: "#FF5544",
@@ -43,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
     blank: {
         padding: "1em 10%",
         backgroundImage: `url(${background})`,
-
+        position: "relative",
+        top: "9.5em"
     },
     contentArea: {
         background: "#333",
@@ -60,10 +69,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RestaurantDashboard() {
     const classes = useStyles();
-
-
-    return (
-    <div>
+    return (<div>
         <ThemeProvider theme={theme}>
             <Paper
                 className={classes.topbar}
@@ -104,6 +110,6 @@ export default function RestaurantDashboard() {
                 </Paper>
             </Paper>
         </ThemeProvider>
-    </div>
+    </div >
     );
 };

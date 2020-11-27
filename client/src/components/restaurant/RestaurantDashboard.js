@@ -52,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
         padding: "1em 10%",
         backgroundImage: `url(${background})`,
         position: "relative",
-        top: "9.5em"
+        top: "9.5em",
+        zIndex: "0"
     },
     contentArea: {
         background: "#333",

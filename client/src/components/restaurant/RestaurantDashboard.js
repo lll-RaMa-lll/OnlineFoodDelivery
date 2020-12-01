@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React, { Component,useEffect} from "react";
 import { styled, makeStyles } from '@material-ui/core/styles';
 import { Paper, GridList, Button, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { Home, AccountCircle, Fastfood, PowerSettingsNew, Height } from '@material-ui/icons';
 import zomato from "../../assets/zomato.png";
 import background from "../../assets/background1.jpg";
-import { size } from "lodash";
+import { size, stubFalse } from "lodash";
 import MenuItem from "../common/menuItem";
 import OrderCard from "../common/orderCard";
 import Profile from "../common/profile";
+import {socket} from '../../socket'
 
 const theme = createMuiTheme({
     palette: {
@@ -69,6 +70,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RestaurantDashboard() {
+
+
+
+    useEffect(()=>{
+        socket.emit('restaurantConnection',{name:'someRestaurant'},(response)=>{
+            console.log(response)
+        })
+
+        socket.on('orderForRestaurant',(data)=>{
+            // let isAcceptingOrder = prompt('will you accept this order')
+            console.log(data)
+            // let answer= prompt('would you accept the order?')
+            // console.log('answer:',answer)
+            // let isAcceptingOrder = false
+            // if(answer==='yes') isAcceptingOrder = true
+            socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:true})
+
+        })
+
+        socket.on('responseToRestaurantRegardingValetInformation',(data)=>{
+            console.log(data)
+        })
+
+
+    },[])
+
     const classes = useStyles();
     return (<div>
         <ThemeProvider theme={theme}>

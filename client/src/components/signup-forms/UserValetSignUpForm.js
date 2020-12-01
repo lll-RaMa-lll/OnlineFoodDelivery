@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { purple } from '@material-ui/core/colors'
 import {Grid,Container} from '@material-ui/core'
-
+import {signup} from '../auth/helper'
 
 
 
@@ -85,53 +85,34 @@ class UserValetSignUpForm extends Component{
 
  
 
-    submitHandler= event=>{
+    submitHandler = event => {
         event.preventDefault()
         // console.log('submitting!')
-        const {email,username,phone,password,reEnteredPassword}=this.state
+        const { email, username, phone, password, reEnteredPassword } = this.state
 
         // console.log(password,reEnteredPassword)
-        if(password!==reEnteredPassword){
+        if (password !== reEnteredPassword) {
             this.setState({
-                errorMessage:'Your passwords are not matching'
+                errorMessage: 'Your passwords are not matching'
             })
             return
         }
 
-        let submit=async () => {
-            let obj={userType:'valet',name:username,email,phone,password}
-            const {REACT_APP_API_URL}=process.env
-            
-            const rawResponse = await fetch(`${REACT_APP_API_URL}/api/signup`, {
-              method: 'POST',
-              headers: {
-                // 'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(obj)
 
-            });
-            console.log(JSON.stringify(obj))
-            const content = await rawResponse.json();
-            if('error' in content){
-                this.setState({
-                    errorMessage:content.error
-                })
-            }
-            else{
-                this.props.history.push('/success')
-            }
-            
-            console.log(content)
-
-
-        }
-
-        submit()
+        let user = { userType: 'valet', name: username, email, phone, password }
+        signup(user)
+            .then(data=>{
+                if(data.error){
+                    this.setState({
+                        errorMessage: data.error
+                    })
+                }else{
+                    console.log(data)
+                    this.props.history.push('/valet')
+                }
+            }).catch(err=>console.log(err))
 
         
-
-
     }
 
 
@@ -162,17 +143,6 @@ class UserValetSignUpForm extends Component{
                             <br/>
                             <span style={styles.textCenter}>
                                 <TextField
-                                    type='email'
-                                    variant='filled'
-                                    label='Email'
-                                    name='email'
-                                    onChange={this.changeHandler}
-                                
-                                />
-                            </span>
-                            <br/>
-                            <span style={styles.textCenter}>
-                                <TextField
                                     type='text'
                                     name='username'
                                     variant='filled'
@@ -181,6 +151,17 @@ class UserValetSignUpForm extends Component{
                                 
                                 />
                             </span>
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='email'
+                                    variant='filled'
+                                    label='Email'
+                                    name='email'
+                                    onChange={this.changeHandler}
+                                
+                                />
+                            </span>  
                             <br/>
                             <span style={styles.textCenter}>
                                 <TextField

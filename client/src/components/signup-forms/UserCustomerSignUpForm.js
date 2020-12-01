@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 // import { orange } from '@material-ui/core/colors'
 import { green } from '@material-ui/core/colors'
 import {Container} from '@material-ui/core'
+import {signup} from '../auth/helper'
 
 
 
@@ -96,40 +97,21 @@ class UserCustomerSignUpForm extends Component {
             return
         }
 
-        let submit = async () => {
-            let obj = { userType: 'customer', name: username, email, phone, password }
-            const { REACT_APP_API_URL } = process.env
 
-            const rawResponse = await fetch(`${REACT_APP_API_URL}/api/signup`, {
-                method: 'POST',
-                headers: {
-                    // 'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(obj)
+        let user = { userType: 'customer', name: username, email, phone, password }
+        signup(user)
+            .then(data=>{
+                if(data.error){
+                    this.setState({
+                        errorMessage: data.error
+                    })
+                }else{
+                    console.log(data)
+                    this.props.history.push('/')
+                }
+            }).catch(err=>console.log(err))
 
-            });
-            console.log(JSON.stringify(obj))
-            const content = await rawResponse.json();
-            if ('error' in content) {
-                this.setState({
-                    errorMessage: content.error
-                })
-            }
-            else {
-                this.props.history.push('/success')
-            }
-
-            console.log(content)
-
-
-        }
-
-        submit()
-
-
-
-
+        
     }
 
 
@@ -156,17 +138,6 @@ class UserCustomerSignUpForm extends Component {
                             <span style={styles.textCenter}>
                                 <p style={{ color: 'red' }}>{errorMessage}</p>
                             </span>
-                            <br/>
-                            <span style={styles.textCenter}>
-                                <TextField
-                                    type='email'
-                                    variant='filled'
-                                    label='Email'
-                                    name='email'
-                                    onChange={this.changeHandler}
-
-                                />
-                            </span>
                             <br />
                             <span style={styles.textCenter}>
                                 <TextField
@@ -178,7 +149,18 @@ class UserCustomerSignUpForm extends Component {
 
                                 />
                             </span>
-                            <br />
+                            <br/>
+                            <span style={styles.textCenter}>
+                                <TextField
+                                    type='email'
+                                    variant='filled'
+                                    label='Email'
+                                    name='email'
+                                    onChange={this.changeHandler}
+
+                                />
+                            </span>
+                            <br/>
                             <span style={styles.textCenter}>
                                 <TextField
                                     type='phone'

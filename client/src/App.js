@@ -4,11 +4,14 @@ import { UserCustomerSignUpForm } from './components/signup-forms/UserCustomerSi
 import { UserRestaurantSignUpForm } from './components/signup-forms/UserRestaurantSignUpForm'
 import { UserValetSignUpForm } from './components/signup-forms/UserValetSignUpForm'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Homepage from './components/Home'
+import Homepage from './components/user/Home'
 import RestaurantDashboard from './components/restaurant/RestaurantDashboard'
 import MediaCard from "./components/common/foodCard";
 import RestaurantHOme from "./components/restaurant/RestaurantHome"
 import ValetHome from "./components/valet/ValetHome"
+import UserDashboard from "./components/user/UserDashboard"
+import OrderPage from './components/user/OrderPage'
+import ValetDashboard from './components/valet/ValetDashboard'
 
 class App extends Component {
 
@@ -36,6 +39,9 @@ class App extends Component {
             <Route path='/card' exact component={MediaCard} />
             <Route path='/restaurant' exact component={RestaurantHOme} />
             <Route path='/valet' exact component={ValetHome} />
+            <Route path='/home' exact component={UserDashboard} />
+            <Route path='/home/order' exact component={OrderPage} />
+            <Route path='/valet/home' exact component={ValetDashboard} />
 
           </Switch>
         </div>

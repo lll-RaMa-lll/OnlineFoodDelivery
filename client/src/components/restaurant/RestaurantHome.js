@@ -1,6 +1,7 @@
-import React from 'react'
+import React ,{useState} from 'react'
+import { Modal } from 'react-responsive-modal'
 import { Button, makeStyles, createMuiTheme, Grid, Paper } from '@material-ui/core'
-// import {UserRestaurantSignUp} from '../signup-forms/UserRestaurantSignUpForm'
+import UserRestaurantSignIn from '../signin-forms/UserRestaurantSignin'
 import BackRestaurant from '../../assets/back-rest.jpg'
 import Zomato from "../../assets/zomato.png"
 const theme = createMuiTheme({
@@ -46,9 +47,14 @@ const useStyles = makeStyles({
 });
 
 export default function RestaurantHome(props) {
+
+    const [openSignin,setOpenSignin] = useState(false)
     const classes = useStyles();
     return (
         <div className={classes.back}>
+            <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
+                <UserRestaurantSignIn />
+            </Modal>
             <Paper className={classes.topBar}>
                 <img src={Zomato} style={{ height: "4em" }}></img>
                 <h1 className={classes.toptext}>Restaurantss</h1>
@@ -76,6 +82,7 @@ export default function RestaurantHome(props) {
                     className={classes.button}
                     color='secondary'
                     variant='contained'
+                    onClick={()=>setOpenSignin(true)}
                 >Sign In
                 </Button>
             </Grid>

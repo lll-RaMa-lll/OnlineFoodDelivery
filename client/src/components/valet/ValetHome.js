@@ -3,7 +3,7 @@ import { Button, makeStyles, createMuiTheme, Grid, Paper } from '@material-ui/co
 import { MoodSharp } from '@material-ui/icons';
 import BackRestaurant from '../../assets/back-restaurant.jpg'
 import Zomato from "../../assets/zomato.png"
-import UserCustomerSignIn from '../signin-forms/UserCustomerSignIn'
+import UserValetSignIn from '../signin-forms/UserValetSignin'
 import { Modal } from 'react-responsive-modal'
 
 const theme = createMuiTheme({
@@ -53,7 +53,7 @@ export default function ValetHome(props) {
     return (
         <div className={classes.back}>
             <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
-                <UserCustomerSignIn />
+                <UserValetSignIn/>
             </Modal>
             <Paper className={classes.topBar}>
                 <img src={Zomato} style={{ height: "4em" }}></img>

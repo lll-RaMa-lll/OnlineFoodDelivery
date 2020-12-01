@@ -16,6 +16,8 @@ import Image from '../../assets/pexels-pixabay-461198.jpg'
 import { green } from '@material-ui/core/colors'
 import {ThemeProvider,createMuiTheme} from '@material-ui/core/styles'
 import SaveIcon from '@material-ui/icons/Save'
+import {signin,authenticate} from '../auth/helper'
+import {withRouter} from 'react-router-dom'
 
 
 
@@ -66,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignInSide() {
+function UserCustomerSignIn({history}) {
   const classes = useStyles();
   const [user,setUser]=useState({
       email:'',
@@ -91,37 +93,26 @@ export default function SignInSide() {
     let handleSubmit= (e)=>{
         e.preventDefault()
         let {email,password,isRemembered,errorMessage}=user
-        let submit = async () => {
-            let obj = { userType: 'customer', email, password }
-            const { REACT_APP_API_URL } = process.env
 
-            const rawResponse = await fetch(`${REACT_APP_API_URL}/api/signin`, {
-                method: 'POST',
-                headers: {
-                    // 'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(obj)
-
-            });
-            console.log(JSON.stringify(obj))
-            const content = await rawResponse.json();
-            if ('error' in content) {
+        signin({userType:'customer',email,password})
+          .then(data=>{
+              if(data.error){
                 setUser({
-                    errorMessage:content.error
+                  ...user,
+                  errorMessage:data.error
                 })
-            }
-            else {
-                this.props.history.push('/success')
-            }
-
-            console.log(content)
-
-
-        }
-
-        submit()
-
+              }else{
+                if(user.isRemembered){
+                  authenticate(data,()=>{
+                    console.log('successfully saved data on the local storage')
+              
+                  })
+                }
+                console.log(data)
+                history.push('/home')
+              }
+          })
+          .catch(err=>console.log(err))
 
     }
 
@@ -172,8 +163,6 @@ export default function SignInSide() {
                 label="Remember me"
                 onChange={handleChange}
                 />
-                <h1>{user.email}</h1>
-                <h1>{user.password}</h1>
                 <Button
                 type="submit"
                 fullWidth
@@ -192,3 +181,6 @@ export default function SignInSide() {
     </ThemeProvider>
   );
 }
+
+
+export default withRouter(UserCustomerSignIn)

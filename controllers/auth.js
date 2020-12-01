@@ -70,6 +70,7 @@ exports.signin = (req, res) => {
         var User = User_customer;
     else if (req.body.userType == "restaurant")
         var User = User_restaurant;
+
     else if (req.body.userType == "valet")
         var User = User_valet;
 
@@ -103,6 +104,8 @@ exports.signin = (req, res) => {
             expire: new Date() + 604800 // expires after 7 days
         });
 
+        let userType = req.body.userType  
+
         //send response to frontend
         const {
             _id,
@@ -114,7 +117,8 @@ exports.signin = (req, res) => {
             user: {
                 _id,
                 name,
-                email
+                email,
+                userType
             }
         });
     });
@@ -154,7 +158,7 @@ exports.isAuthenticated = (req, res, next) => {
 //     next()
 // }
 
-// exports.isValet = (req,res,next) => {
+// exports.isValet = (req,res,next) => {z
 //     if (req.profile.userType!=='valet'){
 //         return res.status(403).json({
 //             error:"Valet access is not granted"

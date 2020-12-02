@@ -102,15 +102,16 @@ function UserRestaurantSignIn({history}) {
                   errorMessage:data.error
                 })
               }else{
-                if(user.isRemembered){
-                  authenticate(data,()=>{
-                    console.log('successfully saved data on the local storage')
-              
-                  })
-                }
+                data.isRemembered=user.isRemembered
+                authenticate(data,()=>{
+                  console.log('successfully saved data on the local storage')
+            
+                })
                 console.log(data)
                 history.push('restaurant/home')
+
               }
+  
           })
           .catch(err=>console.log(err))
 

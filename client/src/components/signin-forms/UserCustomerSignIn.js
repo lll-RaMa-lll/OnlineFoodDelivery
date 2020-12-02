@@ -102,13 +102,12 @@ function UserCustomerSignIn({history}) {
                   errorMessage:data.error
                 })
               }else{
-                if(user.isRemembered){
+                  data.isRemembered=user.isRemembered
                   authenticate(data,()=>{
-                    console.log('successfully saved data on the local storage')
+                    console.log('successfully saved data on storage')
               
                   })
-                }
-                console.log(data)
+                // console.log(data)
                 history.push('/home')
               }
           })

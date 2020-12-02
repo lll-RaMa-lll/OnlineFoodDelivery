@@ -33,7 +33,11 @@ export const signin = user => {
 export const authenticate = (data, next) => {
   if (typeof window !== "undefined") {
     let jwt = `${data.user.userType}_jwt`
-    localStorage.setItem(jwt, JSON.stringify(data));
+    if(data.isRemembered){
+      localStorage.setItem(jwt, JSON.stringify(data));
+    }else{
+      sessionStorage.setItem(jwt,JSON.stringify(data));
+    }
     next();
   }
 };
@@ -58,7 +62,9 @@ export const isAutheticated = (userType) => {
   let jwt= `${userType}_jwt`
   if (localStorage.getItem(jwt)) {
     return JSON.parse(localStorage.getItem(jwt));
-  } else {
+  }else if(sessionStorage.getItem(jwt)){
+    return JSON.parse(sessionStorage.getItem(jwt))
+  }else {
     return false;
   }
 };

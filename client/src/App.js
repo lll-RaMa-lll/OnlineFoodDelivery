@@ -12,6 +12,10 @@ import ValetHome from "./components/valet/ValetHome"
 import UserDashboard from "./components/user/UserDashboard"
 import OrderPage from './components/user/OrderPage'
 import ValetDashboard from './components/valet/ValetDashboard'
+import CustomerRoute from './components/auth/helper/CustomerRoute'
+import RestaurantRoute from './components/auth/helper/RestaurantRoute'
+import ValetRoute from './components/auth/helper/ValetRoute'
+
 
 class App extends Component {
 
@@ -35,13 +39,13 @@ class App extends Component {
             <Route path='/user-restaurant-signup' exact component={UserRestaurantSignUpForm} />
             <Route path='/user-valet-signup' exact component={UserValetSignUpForm} />
             <Route path='/success' exact component={Finished} />
-            <Route path='/restaurant/home' exact component={RestaurantDashboard} />
+            <RestaurantRoute path='/restaurant/home' exact component={RestaurantDashboard} />
             <Route path='/card' exact component={MediaCard} />
             <Route path='/restaurant' exact component={RestaurantHOme} />
             <Route path='/valet' exact component={ValetHome} />
-            <Route path='/home' exact component={UserDashboard} />
-            <Route path='/home/order' exact component={OrderPage} />
-            <Route path='/valet/home' exact component={ValetDashboard} />
+            <CustomerRoute path='/home' exact component={UserDashboard} />
+            <CustomerRoute path='/home/order' exact component={OrderPage} />
+            <ValetRoute path='/valet/home' exact component={ValetDashboard} />
 
           </Switch>
         </div>

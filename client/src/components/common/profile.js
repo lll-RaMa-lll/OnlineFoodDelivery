@@ -4,7 +4,7 @@ import { Rating } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/styles';
 import { AddAPhoto } from '@material-ui/icons';
 import Food from '../../assets/default_food.jpg';
-
+import { arrayBufferToBase64 } from '../common/helper/imageConversion'
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
@@ -110,7 +110,12 @@ export default function Profile(props) {
                 <Grid item xs={6}>
                     {props.userType == 'restaurant' &&
                         <div className={classes.root} style={{ backgroundColor: '#0000' }}>
-                            <img src={photo} className={classes.photo}></img>
+                            {props.image == undefined &&
+                                <img src={photo} className={classes.photo}></img>
+                            }
+                            {props.image != undefined &&
+                                <img src={`data:${photo.contentType};base64,${arrayBufferToBase64(photo.data.data)}`} className={classes.photo}></img>
+                            }
                             <div className={classes.uploadPic}>
                                 <AddAPhoto className={classes.addIcon} />
                                 <b>Change Photo</b>

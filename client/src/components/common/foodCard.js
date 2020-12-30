@@ -10,7 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { Delete, Edit, Warning } from '@material-ui/icons';
 import Picture from '../../assets/default_food.jpg'
 import { Rating } from '@material-ui/lab';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { arrayBufferToBase64 } from '../common/helper/imageConversion';
 
 const useStyles = makeStyles({
     root: {
@@ -44,27 +45,38 @@ const useStyles = makeStyles({
         position: "relative",
         top: "-1.2em",
         left: "20%"
-    }
+    },
 });
 
 export default function MediaCard(props) {
     let ItemName = props.name ? props.name : "Item Name";
     let active = props.isAvailiable ? props.isAvailiable : false;
     let rating = props.rating ? props.rating : 0.0;
+    let image = props.image ? props.image : Picture;
 
     const classes = useStyles();
     let path = props.path ? props.path : "/"
 
     return (
-        <Link to={path}>
+        <Link to={path} style={{ textDecoration: 'none' }}>
             <Card className={classes.root}>
                 <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        height="160vw"
-                        src = {Image}
-                        title="Food">
-                    </CardMedia>
+                    {props.image != undefined &&
+                        <CardMedia
+                            component="img"
+                            height="160vw"
+                            src={`data:${image.contentType};base64,${arrayBufferToBase64(image.data.data)}`}
+                            title="Food">
+                        </CardMedia>
+                    }
+                    {props.image == undefined &&
+                        <CardMedia
+                            component="img"
+                            height="160vw"
+                            src={Picture}
+                            title="Food">
+                        </CardMedia>
+                    }
                 </CardActionArea>
                 <Typography gutterBottom variant="h5" component="h2" className={classes.text}>
                     {ItemName}

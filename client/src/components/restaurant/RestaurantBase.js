@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom'
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: "#FF5544",
+            main: "#448844",
         },
         secondary: {
             main: "#FFFF88",
@@ -27,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
         position: "fixed",
         top: '0',
         width: "100%",
-        zIndex: "1"
+        zIndex: "1",
+        display: "flex",
+        color: "#FFF"
     },
     icon: {
         color: "#FFF",
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         left: "0.5em"
     },
     navbar: {
-        background: "#FF5544",
+        background: "#448844",
         padding: "1em 1em",
         position: "fixed",
         top: "6em",
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         zIndex: "2"
     },
     button: {
-        background: "#FF5544",
+        background: "#448844",
         height: "2em",
         width: "10vw",
         color: "#FFF",
@@ -75,6 +77,7 @@ function RestaurantBase(props) {
                 className={classes.topbar}
                 square="true">
                 <img src={zomato} height="60vh" position="relative" left="20vw"></img>
+                <h1>Restaurants</h1>
             </Paper>
             <Paper
                 className={classes.navbar}

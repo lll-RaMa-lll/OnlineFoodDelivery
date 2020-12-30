@@ -98,7 +98,7 @@ function UserBase(props) {
                     className={classes.navbar}
                     elevation={8}
                     square="true">
-                    {isSignedIn == true &&
+                    {isSignedIn &&
                         <div>
                             <Button
                                 hidden={true}
@@ -128,7 +128,7 @@ function UserBase(props) {
                             </Button>
                         </div>
                     }
-                    {isSignedIn == false &&
+                    {!isSignedIn &&
                         <div>
                             <Button
                                 className={classes.button}

@@ -14,6 +14,7 @@ import OrderPage from './components/user/OrderPage'
 import OrderPageAuthenticated from './components/user/OrderPageAuthenticated'
 import ValetDashboard from './components/valet/ValetDashboard'
 import CustomerRoute from './components/auth/helper/CustomerRoute'
+import GuestRoute from './components/auth/helper/GuestRoute'
 import RestaurantRoute from './components/auth/helper/RestaurantRoute'
 import ValetRoute from './components/auth/helper/ValetRoute'
 import OrderProcessingPage from './components/user/OrderProcessingPage'
@@ -36,8 +37,8 @@ class App extends Component {
         <div className='base-class'>
           <Switch>
             {/* <Route path='/userSignup' exact component={()=><Form className='usersignup'/>} /> */}
-            <Route path='/' exact component={Homepage} />
-            <Route path='/user-customer-signup' exact component={UserCustomerSignUpForm} />
+            <GuestRoute path='/' exact component={Homepage} />
+            <GuestRoute path='/user-customer-signup' exact component={UserCustomerSignUpForm} />
             <Route path='/user-restaurant-signup' exact component={UserRestaurantSignUpForm} />
             <Route path='/user-valet-signup' exact component={UserValetSignUpForm} />
             <Route path='/success' exact component={Finished} />
@@ -47,7 +48,7 @@ class App extends Component {
             <Route path='/valet' exact component={ValetHome} />
             <CustomerRoute path='/home' exact component={UserDashboard} />
             <CustomerRoute path='/home/order/restaurants/:restaurantId' exact component={OrderPageAuthenticated} />
-            <Route path = '/restaurants/:restaurantId' exact component={OrderPage} />
+            <GuestRoute path = '/restaurants/:restaurantId' exact component={OrderPage} />
             <ValetRoute path='/valet/home' exact component={ValetDashboard} />
             <CustomerRoute path='/home/order/process' exact component={OrderProcessingPage}/>
             <Route path='/test' exact component={ValetAcceptOrder} />

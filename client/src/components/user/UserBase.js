@@ -6,6 +6,8 @@ import { Modal } from 'react-responsive-modal'
 import zomato from "../../assets/zomato.png";
 import background from "../../assets/background1.jpg";
 import UserCustomerSignIn from "../../components/signin-forms/UserCustomerSignIn"
+import {signout} from '../auth/helper'
+import { withRouter } from 'react-router-dom'
 
 const theme = createMuiTheme({
     palette: {
@@ -80,7 +82,7 @@ function UserBase(props) {
     const classes = useStyles();
     let isSignedIn = props.isSignedIn ? props.isSignedIn : false
     const [openSignin, setOpenSignin] = useState(false)
-
+    console.log(props.history)
     return (
         <div>
             <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
@@ -115,7 +117,12 @@ function UserBase(props) {
                             <Fastfood className={classes.icon}></Fastfood>
                             </Button>
                             <Button
-                                className={classes.button}>
+                                className={classes.button}
+                                onClick={() => {
+                                    signout('customer', () => {
+                                        props.history.push('/')
+                                    })
+                                }}>
                                 Logout
                             <PowerSettingsNew className={classes.icon}></PowerSettingsNew>
                             </Button>
@@ -149,4 +156,4 @@ function UserBase(props) {
 
 }
 
-export default UserBase
+export default withRouter(UserBase);

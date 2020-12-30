@@ -24,8 +24,9 @@ export default function RestaurantDashboard({ history }) {
 
         socket.on('orderForRestaurant', (data) => {
             // let isAcceptingOrder = prompt('will you accept this order')
-            console.log(data)
-            setOrders([...orders, data])
+            
+            console.log('order data from backend',data)
+            setOrders([...orders,data])
             // let answer= prompt('would you accept the order?')
             // console.log('answer:',answer)
             // let isAcceptingOrder = false

@@ -25,7 +25,9 @@ const useStyles = makeStyles((theme) => ({
         position: "fixed",
         top: '0',
         width: "100%",
-        zIndex: "1"
+        zIndex: "1",
+        display: "flex",
+        color: "#FFF"
     },
     icon: {
         color: "#FFF",
@@ -88,6 +90,7 @@ function ValetBase(props) {
                     className={classes.topbar}
                     square="true">
                     <img src={zomato} height="60vh" position="relative" left="20vw"></img>
+                    <h1>Valets</h1>
                 </Paper>
                 <Paper
                     className={classes.navbar}

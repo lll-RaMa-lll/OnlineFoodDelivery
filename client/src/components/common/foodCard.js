@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { Delete, Edit, Warning } from '@material-ui/icons';
 import Picture from '../../assets/default_food.jpg'
 import { Rating } from '@material-ui/lab';
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles({
     root: {
@@ -52,40 +53,43 @@ export default function MediaCard(props) {
     let rating = props.rating ? props.rating : 0.0;
 
     const classes = useStyles();
+    let path = props.path ? props.path : "/"
 
     return (
-        <Card className={classes.root}>
-            <CardActionArea>
-                <CardMedia
-                    component="img"
-                    height="160vw"
-                    image={Picture}
-                    title="Food">
-                </CardMedia>
-            </CardActionArea>
-            <Typography gutterBottom variant="h5" component="h2" className={classes.text}>
-                {ItemName}
-            </Typography>
-            {props.type == 'food' &&
+        <Link to={path}>
+            <Card className={classes.root}>
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        height="160vw"
+                        src = {Image}
+                        title="Food">
+                    </CardMedia>
+                </CardActionArea>
+                <Typography gutterBottom variant="h5" component="h2" className={classes.text}>
+                    {ItemName}
+                </Typography>
+                {props.type == 'food' &&
 
-                <CardActions className={classes.buttons}>
-                    <Button size="small" className={classes.button}>
-                        <Edit />
-                    </Button>
-                    <Button size="small" className={classes.button}>
-                        <Warning />
-                    </Button>
-                    <Button size="small" className={classes.button}>
-                        <Delete />
-                    </Button>
-                </CardActions>
+                    <CardActions className={classes.buttons}>
+                        <Button size="small" className={classes.button}>
+                            <Edit />
+                        </Button>
+                        <Button size="small" className={classes.button}>
+                            <Warning />
+                        </Button>
+                        <Button size="small" className={classes.button}>
+                            <Delete />
+                        </Button>
+                    </CardActions>
 
-            }
-            {props.type != 'food' &&
+                }
+                {props.type != 'food' &&
 
-                <Rating readOnly value={rating} precision={0.1} className={classes.rating} />
+                    <Rating readOnly value={rating} precision={0.1} className={classes.rating} />
 
-            }
-        </Card>
+                }
+            </Card>
+        </Link>
     );
 }

@@ -8,6 +8,8 @@ import { styled, makeStyles } from '@material-ui/core/styles';
 import zomato from "../../assets/zomato.png";
 import background from "../../assets/background1.jpg";
 import MediaCard from '../common/foodCard'
+import {getRestaurants} from './helper/coreApiCalls'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
 
@@ -73,24 +75,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Homepage(props) {
     const classes = useStyles();
     const [openSignin, setOpenSignin] = useState(false)
-    const [restaurantList,setRestaurantList] = useState({restaurants:[]})
+    const [restaurantList,setRestaurantList] = useState([])
 
     useEffect(() => {
-        let fetchMovies = async ()=>{
-            let api_url =`${process.env.REACT_APP_API_URL}/api/restaurant/all`
-            let response = await fetch(api_url)
-            console.log(response)
-            let data= await response.json()
-            console.log(data.restaurants)
-            console.log('yo')
-            setRestaurantList(pre=>({
-                ...pre,
-                restaurants:data.restaurants.map(v=><MediaCard name={v.name}/>
-                )
-            }))
-            console.log(restaurantList.restaurants)
-        }
-        fetchMovies()
+        getRestaurants()
+        .then(data=>{
+            if(data.error){
+                console.log(data.error)
+            }else{
+                let restaurants= data
+                console.log(restaurants)
+                setRestaurantList(restaurants)
+            }
+        })
         
     }, [])
 
@@ -160,7 +157,12 @@ export default function Homepage(props) {
                                 </Grid>
                             </Grid> */}
                             {
-                                restaurantList.restaurants
+                                restaurantList.map(restaurant=>{
+                                    let restaurantId = restaurant._id
+                                    
+                                    return <MediaCard name={restaurant.name} image={restaurant.image} path={`/restaurants/${restaurantId}`}/>
+                                    
+                                })
                             }
                         </Paper>
                     </Paper>

@@ -5,9 +5,11 @@ import {getFoods,getImageForAFood} from './helper/coreApiCalls'
 import FoodCard from '../common/foodCard'
 import MenuItem from '../common/menuItem'
 import { isAutheticated } from '../auth/helper'
+import {Button} from '@material-ui/core'
+import {loadCart } from '../common/helper/carthelper'
 
 
-export default function OrderPage(){
+export default function OrderPageAuthenticated({history}){
 
     const { user, token } = isAutheticated('customer');
     const [params, setParams] = useState(useParams())
@@ -15,15 +17,8 @@ export default function OrderPage(){
     // const [images,setImages] = useState({})
 
     useEffect(()=>{
-        // socket.emit('orderPlaced',{customerName:'someone',restaurantName:'someRestaurant'})
         
-        // socket.on('responseToUser',(data)=>{
-        //     console.log(data)
-        // })
-
-        // socket.on('errorMessage',(err)=>{
-        //     console.log(err)
-        // })
+       
 
         getFoods(params.restaurantId)
         .then(data=>{
@@ -40,18 +35,31 @@ export default function OrderPage(){
         
     },[])
 
+    const clickHandler = ()=>{
+        console.log('clicked')
+        history.push('/home/order/process')
+    }
+
     console.log('foods',foodList)
     // console.log('images',images)
     return(
         <div>
-            <h1>Order Page</h1>
+            <h1>Order Page Authenticated</h1>
             {foodList.map(food=>{
-                return <MenuItem item={ { restaurant:params.restaurantId, customer:user._id, food , disabled:true} }
+                return <MenuItem item={ { restaurant:params.restaurantId, customer:user._id, food } }
                 image={food.image} 
                 name={food.name} 
                 price={food.price}
                 description={food.description} />
             })}
+            <Button
+                variant='outlined'
+                color='secondary'
+                onClick={clickHandler}
+            >
+                Place Order
+            </Button>
         </div>
+        
     )
 }

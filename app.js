@@ -48,6 +48,7 @@ app.use("/api", valetRoute);
 app.use("/api",foodRoutes);
 
 
+let orderData={}
 
 io.on('connect',(socket)=>{
 
@@ -72,17 +73,17 @@ io.on('connect',(socket)=>{
     })
 
     socket.on('orderPlaced',(data)=>{
-        console.log(data)
+    
         socket.emit('responseToUser',{message:'order is saved.waiting for restaurant update'})
 
-        const {userName,restaurantName} = data
-        const restaurant = getUser(restaurantName,'restaurant')
+        // console.log('restaurantId',data.orderData.restaurant)
+        const restaurant = getUser(data.orderData.restaurant,'restaurant')
         
         if(!restaurant) {socket.emit('errorMessage',{error:'restaurant is not online right now'})}
         else{
             socketRestaurant=restaurant.socket
 
-            socketRestaurant.emit('orderForRestaurant',data)
+            socketRestaurant.emit('orderForRestaurant',data.orderData)
 
             socketRestaurant.on('responseToServerRegardingOrderFromRestaurant', (data)=>{
                 console.log(data)

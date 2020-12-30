@@ -11,11 +11,13 @@ import RestaurantHome from "./components/restaurant/RestaurantHome"
 import ValetHome from "./components/valet/ValetHome"
 import UserDashboard from "./components/user/UserDashboard"
 import OrderPage from './components/user/OrderPage'
+import OrderPageAuthenticated from './components/user/OrderPageAuthenticated'
 import ValetDashboard from './components/valet/ValetDashboard'
 import CustomerRoute from './components/auth/helper/CustomerRoute'
 import RestaurantRoute from './components/auth/helper/RestaurantRoute'
 import ValetRoute from './components/auth/helper/ValetRoute'
-
+import OrderProcessingPage from './components/user/OrderProcessingPage'
+import ValetAcceptOrder from "./components/valet/ValetAcceptOrder";
 
 class App extends Component {
 
@@ -44,9 +46,11 @@ class App extends Component {
             <Route path='/restaurant' exact component={RestaurantHome} />
             <Route path='/valet' exact component={ValetHome} />
             <CustomerRoute path='/home' exact component={UserDashboard} />
-            <CustomerRoute path='/home/order' exact component={OrderPage} />
+            <CustomerRoute path='/home/order/restaurants/:restaurantId' exact component={OrderPageAuthenticated} />
+            <Route path = '/restaurants/:restaurantId' exact component={OrderPage} />
             <ValetRoute path='/valet/home' exact component={ValetDashboard} />
-
+            <CustomerRoute path='/home/order/process' exact component={OrderProcessingPage}/>
+            <Route path='/test' exact component={ValetAcceptOrder} />
           </Switch>
         </div>
 

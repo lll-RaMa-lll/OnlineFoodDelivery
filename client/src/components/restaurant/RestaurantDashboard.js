@@ -1,4 +1,4 @@
-import React, { Component,useEffect} from "react";
+import React, { Component,useEffect,useState } from "react";
 import { styled, makeStyles } from '@material-ui/core/styles';
 import { Paper, GridList, Button, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { Home, AccountCircle, Fastfood, PowerSettingsNew, Height } from '@material-ui/icons';
@@ -9,6 +9,9 @@ import MenuItem from "../common/menuItem";
 import OrderCard from "../common/orderCard";
 import Profile from "../common/profile";
 import {socket} from '../../socket'
+import { Modal } from 'react-responsive-modal'
+import AddFood from './AddFood'
+import {isAutheticated, signout} from '../auth/helper'
 
 const theme = createMuiTheme({
     palette: {
@@ -69,23 +72,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function RestaurantDashboard() {
+export default function RestaurantDashboard({history}) {
 
-
+    let {user,token} = isAutheticated('restaurant')
 
     useEffect(()=>{
-        socket.emit('restaurantConnection',{name:'someRestaurant'},(response)=>{
+        socket.emit('restaurantConnection',{id:user._id,name:user.name},(response)=>{
             console.log(response)
         })
 
         socket.on('orderForRestaurant',(data)=>{
             // let isAcceptingOrder = prompt('will you accept this order')
             console.log(data)
+            setOrders([...orders,data])
             // let answer= prompt('would you accept the order?')
             // console.log('answer:',answer)
             // let isAcceptingOrder = false
             // if(answer==='yes') isAcceptingOrder = true
-            socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:true})
+            
 
         })
 
@@ -95,9 +99,15 @@ export default function RestaurantDashboard() {
 
 
     },[])
+    
+    const [openDishes, setOpenDishes] = useState(false)
+    const [orders, setOrders] = useState([])
 
     const classes = useStyles();
     return (<div>
+        <Modal open={openDishes} onClose={() => setOpenDishes(false)}>
+                <AddFood/>
+        </Modal>
         <ThemeProvider theme={theme}>
             <Paper
                 className={classes.topbar}
@@ -119,12 +129,18 @@ export default function RestaurantDashboard() {
                     <AccountCircle className={classes.icon}></AccountCircle>
                 </Button>
                 <Button
-                    className={classes.button}>
+                    className={classes.button} onClick = {()=>setOpenDishes(true)}>
                     Dishes
                     <Fastfood className={classes.icon}></Fastfood>
                 </Button>
                 <Button
-                    className={classes.button}>
+                    className={classes.button}
+                    onClick={()=>{
+                        signout('restaurant',()=>{
+                            history.push('/restaurant')
+                        })
+                    }}
+                    >
                     Logout
                     <PowerSettingsNew className={classes.icon}></PowerSettingsNew>
                 </Button>
@@ -134,7 +150,10 @@ export default function RestaurantDashboard() {
                 <Paper
                     className={classes.contentArea}>
                     <h1 className={classes.heading}>Your Orders</h1>
-                    <MenuItem></MenuItem><OrderCard></OrderCard><Profile></Profile>
+                    {orders.map(order=>{
+                        return <OrderCard item={order} />
+                    })}
+                    <Profile></Profile>
                 </Paper>
             </Paper>
         </ThemeProvider>

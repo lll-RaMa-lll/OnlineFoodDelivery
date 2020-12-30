@@ -1,3 +1,5 @@
+// import jwt from "express-jwt";
+
 const API = process.env.REACT_APP_API_URL
 
 export const signup = user => {
@@ -42,16 +44,11 @@ export const authenticate = (data, next) => {
   }
 };
 
-export const signout = next => {
+export const signout = (userType,next)=> {
   if (typeof window !== "undefined") {
-    localStorage.removeItem("jwt");
+    let jwt=`${userType}_jwt`
+    localStorage.removeItem(jwt);
     next();
-
-    return fetch(`${API}/api/signout`, {
-      method: "GET"
-    })
-      .then(response => console.log("signout success"))
-      .catch(err => console.log(err));
   }
 };
 

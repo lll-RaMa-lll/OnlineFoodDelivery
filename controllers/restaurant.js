@@ -28,16 +28,27 @@ exports.getRestaurant = (req, res) => {
 }
 
 exports.getAllRestaurants = (req, res) => {
-    User_restaurant.find({}, '_id name rating description isAcceptingOrder image', (err, restaurants) => {
+    User_restaurant.find({}, (err, restaurants) => {
         if (err) {
             return res.status(400).json({
                 error: "Unable to find any restaurant"
             });
         }
-        res.json({ restaurants });
+        res.json(restaurants);
     })
 }
 
+
+exports.getImage = (req, res) => {
+  if (req.profile.image.data) {
+    res.set("Content-Type", req.profile.image.contentType);
+    return res.send(req.profile.image.data);
+  }else{
+      res.status(400).send({
+          error:"There is no image in DB"
+      })
+  }
+};
 
 
 

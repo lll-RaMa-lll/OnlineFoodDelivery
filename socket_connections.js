@@ -6,18 +6,18 @@ const valets = []
 
 
 
-const addUser = ({name,...rest},socket,userType)=>{
+const addUser = ({id,...rest},socket,userType)=>{
     let users = ''
     if(userType === 'customer') users=customers
     if(userType === 'restaurant') users = restaurants
     if(userType === 'valet') users = valets
 
-    if(!name) return {error:'userName is required'}
+    if(!id) return {error:'userId is required'}
 
-    const existingUser = users.find(user=>user.name===name)
+    const existingUser = users.find(user=>user.id===id)
     if (existingUser) return {error:'user is already present'}
 
-    const user = {name,...rest,socket:socket}
+    const user = {id,...rest,socket:socket}
 
     console.log(`number of ${userType}s are: `)
     console.log(users.push(user))
@@ -50,7 +50,7 @@ const removeUser = (id) => {
 
 }
 
-const getUser = (name,userType) => {
+const getUser = (id,userType) => {
     let users = ''
     if(userType === 'customer') users=customers
     if(userType === 'restaurant') users = restaurants
@@ -59,7 +59,7 @@ const getUser = (name,userType) => {
     console.log(userType)
     console.log(users.length)
     
-    return users.find((user) => user.name === name)
+    return users.find((user) => user.id === id)
 
 };
 

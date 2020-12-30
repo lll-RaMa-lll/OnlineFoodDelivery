@@ -48,7 +48,7 @@ export default function MenuItem(props) {
                 <p>{description}</p>
             </div>
             <div style={{ position: "relative", top: "2em" }}>
-                <Counter className={classes.quantity}></Counter>
+                <Counter item={props.item} className={classes.quantity}></Counter>
             </div>
         </div>
     );

@@ -6,6 +6,8 @@ import { Modal } from 'react-responsive-modal'
 import zomato from "../../assets/zomato.png";
 import background from "../../assets/background1.jpg";
 import UserCustomerSignIn from "../signin-forms/UserCustomerSignIn"
+import {signout} from '../auth/helper'
+import {withRouter} from 'react-router-dom'
 
 const theme = createMuiTheme({
     palette: {
@@ -114,7 +116,13 @@ function ValetBase(props) {
                             <Fastfood className={classes.icon}></Fastfood>
                         </Button>
                         <Button
-                            className={classes.button}>
+                            className={classes.button}
+                            onClick={() => {
+                                signout('valet', () => {
+                                    props.history.push('/valet')
+                                })  
+                            }}
+                            >
                             Logout
                             <PowerSettingsNew className={classes.icon}></PowerSettingsNew>
                         </Button>
@@ -133,4 +141,4 @@ function ValetBase(props) {
 
 }
 
-export default ValetBase
+export default withRouter(ValetBase)

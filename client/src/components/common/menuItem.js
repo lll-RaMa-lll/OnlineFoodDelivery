@@ -32,6 +32,13 @@ const useStyles = makeStyles({
     }
 });
 
+function arrayBufferToBase64(buffer) {
+    let binary = '';
+    let bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => binary += String.fromCharCode(b));
+    return window.btoa(binary);
+};
+
 export default function MenuItem(props) {
 
     const classes = useStyles();
@@ -39,12 +46,16 @@ export default function MenuItem(props) {
     let itemName = (props.name) ? (props.name) : ("Item Name");
     let price = (props.price) ? (props.price) : ("100");
     let description = (props.description) ? (props.description) : ("Description of the item goes here");
-
     return (
         <div className={classes.item}>
-            <img src={image} className={classes.photo}></img>
+            {props.image != undefined &&
+                <img src={`data:${image.contentType};base64,${arrayBufferToBase64(image.data.data)}`} className={classes.photo}></img>
+            }
+            {props.image == undefined &&
+                <img src={Food} className={classes.photo}></img>
+            }
             <div className={classes.text}>
-                <h4>{itemName}<br />₹{price}</h4>
+                <h4>{itemName}<br /><br />₹{price}</h4>
                 <p>{description}</p>
             </div>
             <div style={{ position: "relative", top: "2em" }}>

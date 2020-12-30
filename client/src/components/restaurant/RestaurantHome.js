@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React, { useState } from 'react'
 import { Modal } from 'react-responsive-modal'
 import { Button, makeStyles, createMuiTheme, Grid, Paper } from '@material-ui/core'
 import UserRestaurantSignIn from '../signin-forms/UserRestaurantSignin'
@@ -32,13 +32,15 @@ const useStyles = makeStyles({
         padding: '0px',
         margin: '0px',
         backgroundImage: 'url(' + BackRestaurant + ')',
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         color: "#FFF",
         height: "100vh"
     },
     centerText: {
         textAlign: "center",
-        paddingTop: "10em"
+        textShadow: "1px 1px 5px black",
+        paddingTop: "8em"
     },
     button: {
         backgroundColor: "#448844",
@@ -48,7 +50,7 @@ const useStyles = makeStyles({
 
 export default function RestaurantHome(props) {
 
-    const [openSignin,setOpenSignin] = useState(false)
+    const [openSignin, setOpenSignin] = useState(false)
     const classes = useStyles();
     return (
         <div className={classes.back}>
@@ -57,7 +59,7 @@ export default function RestaurantHome(props) {
             </Modal>
             <Paper className={classes.topBar}>
                 <img src={Zomato} style={{ height: "4em" }}></img>
-                <h1 className={classes.toptext}>Restaurantss</h1>
+                <h1 className={classes.toptext}>Restaurants</h1>
             </Paper>
             <h1 className={classes.centerText}>Serving good food to Customers with a Smile :)
             <br />
@@ -82,7 +84,7 @@ export default function RestaurantHome(props) {
                     className={classes.button}
                     color='secondary'
                     variant='contained'
-                    onClick={()=>setOpenSignin(true)}
+                    onClick={() => setOpenSignin(true)}
                 >Sign In
                 </Button>
             </Grid>

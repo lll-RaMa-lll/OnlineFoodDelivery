@@ -32,6 +32,7 @@ export default function OrderPageAuthenticated({ history }) {
     const { user, token } = isAutheticated('customer');
     const [params, setParams] = useState(useParams())
     const [foodList, setFoodList] = useState([])
+    const [amount,setAmount] = useState(0)
     // const [images,setImages] = useState({})
 
     useEffect(() => {
@@ -58,7 +59,7 @@ export default function OrderPageAuthenticated({ history }) {
         history.push('/home/order/process')
     }
 
-    let amount = 0;
+    
 
     console.log('foods', foodList)
     // console.log('images',images)
@@ -67,7 +68,7 @@ export default function OrderPageAuthenticated({ history }) {
             <UserBase isSignedIn={true}>
 
                 {foodList.map(food => {
-                    return <MenuItem item={{ restaurant: params.restaurantId, customer: user._id, food }}
+                    return <MenuItem item={{ restaurant: params.restaurantId, customer: user._id, food}}
                         image={food.image}
                         name={food.name}
                         price={food.price}

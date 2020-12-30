@@ -6,7 +6,7 @@ import UserBase from './UserBase'
 
 export default function OrderProcessingPage() {
 
-    const [message, setMessage] = useState('Order Processing...')
+    const [message, setMessage] = useState('Processing Order')
     // const [error,setError] = useState('')
     useEffect(() => {
 
@@ -28,24 +28,24 @@ export default function OrderProcessingPage() {
 
     return (
         <UserBase isSignedIn={true}>
-            {message == 'Order sent to restaurant' &&
+            {message == 'Processing Order' &&
                 <div>
                     <h1>{message}</h1>
                 </div>
             }
-            {message == 'Order accepted by restaurant' &&
+            {message == 'order is saved.waiting for restaurant update' &&
                 <div>
-
+                    <h1>Order sent to restaurant</h1>
                 </div>
             }
-            {message == 'Valet assigned' &&
+            {message == 'restaurant has accepted the order' &&
                 <div>
-
+                    <h1>Restaurant has accepted the Order</h1>
                 </div>
             }
-            {message == 'Order placed' &&
+            {message.match(/valet named [A-Za-z]* has accepted the order/) != undefined &&
                 <div>
-
+                    <h1>Valet assigned</h1>
                 </div>
             }
         </UserBase>

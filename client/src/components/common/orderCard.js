@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function OrderCard({item}) {
+export default function OrderCard({item,handleYes,handleNo}) {
 
 
     const [accepted, setAccepted] = useState(false)
@@ -56,15 +56,7 @@ export default function OrderCard({item}) {
 
 
 
-    const handleYes=()=>{
-        setAccepted(true)
-        socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:true})
-    }
-
-    const handleNo=()=>{
-        setAccepted(false)
-        socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:false})
-    }
+    
 
 
 

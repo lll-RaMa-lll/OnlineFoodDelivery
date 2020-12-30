@@ -32,9 +32,6 @@ export default function ValetDashboard(){
         socket.on('orderForValet',(data)=>{
 
             console.log(data)
-            let {name,isAcceptingOrder}= data
-            setName(name)
-            console.log(name)
             setOpenModal(true)
 
             // let answer= prompt('would you accept the order?')

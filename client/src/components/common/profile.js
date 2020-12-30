@@ -108,64 +108,70 @@ export default function Profile(props) {
                     </div>
                 </Grid>
                 <Grid item xs={6}>
-                    <div className={classes.root} style={{ backgroundColor: '#0000' }}>
-                        <img src={photo} className={classes.photo}></img>
-                        <div className={classes.uploadPic}>
-                            <AddAPhoto className={classes.addIcon} />
-                            <b>Change Photo</b>
+                    {props.userType == 'restaurant' &&
+                        <div className={classes.root} style={{ backgroundColor: '#0000' }}>
+                            <img src={photo} className={classes.photo}></img>
+                            <div className={classes.uploadPic}>
+                                <AddAPhoto className={classes.addIcon} />
+                                <b>Change Photo</b>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </Grid>
             </Grid>
-            <div className={classes.root}>
-                <br />
-                <TextField
-                    className={classes.text}
-                    id="Address"
-                    label="Address"
-                    multiline
-                    rows={4}
-                    defaultValue={address}
-                    variant="outlined"
-                />
-                <br />
-            </div>
-            <div className={classes.root}>
-                <br />
-                <Grid container xs={12}>
-                    <Grid item xs={6}>
-                        <TextField
-                            className={classes.text}
-                            id="Details"
-                            label="Details"
-                            multiline
-                            rows={4}
-                            defaultValue={details}
-                            variant="outlined"
-                        />
+            {props.userType != 'valet' &&
+                <div className={classes.root}>
+                    <br />
+                    <TextField
+                        className={classes.text}
+                        id="Address"
+                        label="Address"
+                        multiline
+                        rows={4}
+                        defaultValue={address}
+                        variant="outlined"
+                    />
+                    <br />
+                </div>
+            }
+            {(props.userType == 'restaurant' || props.userType == 'valet') &&
+                <div className={classes.root}>
+                    <br />
+                    <Grid container xs={12}>
+                        <Grid item xs={6}>
+                            <TextField
+                                className={classes.text}
+                                id="Details"
+                                label="Details"
+                                multiline
+                                rows={4}
+                                defaultValue={details}
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <h3 style={{ textAlign: "center", borderRight: "2px solid #FFF" }}>
+                                Customer rating
+                            <br />
+                                <a style={{ fontSize: "2em" }}>
+                                    {rating}
+                                </a>
+                                <br />
+                                <Rating readOnly value={rating} precision={0.1} />
+                            </h3>
+                        </Grid>
+                        <Divider />
+                        <Grid item xs={3}>
+                            <h3 style={{ textAlign: "center" }}>
+                                Total Earning
+                            <br />
+                                <br />
+                                <a className={classes.earnings}>₹ {totalIncome}</a>
+                            </h3>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={3}>
-                        <h3 style={{ textAlign: "center", borderRight: "2px solid #FFF" }}>
-                            Customer rating
-                            <br />
-                            <a style={{ fontSize: "2em" }}>
-                                {rating}
-                            </a>
-                            <br />
-                            <Rating readOnly value={rating} precision={0.1} />
-                        </h3>
-                    </Grid>
-                    <Divider />
-                    <Grid item xs={3}>
-                        <h3 style={{ textAlign: "center" }}>
-                            Total Earning
-                            <br />
-                            <br />
-                            <a className={classes.earnings}>₹ {totalIncome}</a>
-                        </h3>
-                    </Grid>
-                </Grid>
-            </div>
+                </div>
+            }
         </ThemeProvider >
     );
 }

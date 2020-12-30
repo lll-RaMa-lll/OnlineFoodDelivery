@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RestaurantDashboard({ history }) {
 
     let { user, token } = isAutheticated('restaurant')
+    const [orders, setOrders] = useState([])
 
     useEffect(() => {
         socket.emit('restaurantConnection', { id: user._id, name: user.name }, (response) => {
@@ -26,7 +27,13 @@ export default function RestaurantDashboard({ history }) {
             // let isAcceptingOrder = prompt('will you accept this order')
             
             console.log('order data from backend',data)
+            // setOrders(pre=>{
+            //     pre.push(data)
+            //     return pre
+            // })
             setOrders([...orders,data])
+            console.log('orders till now', orders)
+
             // let answer= prompt('would you accept the order?')
             // console.log('answer:',answer)
             // let isAcceptingOrder = false
@@ -42,7 +49,16 @@ export default function RestaurantDashboard({ history }) {
 
     }, [])
 
-    const [orders, setOrders] = useState([])
+    
+    const handleYes=()=>{
+        // setAccepted(true)
+        socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:true})
+    }
+
+    const handleNo=()=>{
+        // setAccepted(false)
+        socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:false})
+    }
 
     const classes = useStyles();
     return (
@@ -50,7 +66,11 @@ export default function RestaurantDashboard({ history }) {
 
             <h1 className={classes.heading}>Your Orders</h1>
             {orders.map(order => {
-                return <OrderCard item={order} />
+                console.log(order)
+                return <OrderCard item={order}
+                    handleYes={handleYes}
+                    handleNo={handleNo}
+                />
             })}
             <Profile></Profile>
         </RestaurantBase>

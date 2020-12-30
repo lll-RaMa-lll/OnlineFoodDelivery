@@ -30,7 +30,7 @@ export default function Homepage(props) {
                     restaurantList.map(restaurant => {
                         let restaurantId = restaurant._id
 
-                        return <MediaCard name={restaurant.name} image={restaurant.image} path={`/home/order/restaurants/${restaurantId}`} />
+                        return <MediaCard name={restaurant.name} image={restaurant.image} path={`/restaurants/${restaurantId}`} />
 
                     })
                 }

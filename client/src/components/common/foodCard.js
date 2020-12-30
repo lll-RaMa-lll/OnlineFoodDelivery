@@ -59,7 +59,7 @@ export default function MediaCard(props) {
 
     return (
         <Link to={path} style={{ textDecoration: 'none' }}>
-            <Card className={classes.root}>
+            <Card className={classes.root} style={{ backgroundColor: props.color }}>
                 <CardActionArea>
                     {props.image != undefined &&
                         <CardMedia

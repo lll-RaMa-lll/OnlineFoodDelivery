@@ -4,6 +4,9 @@ import { isAutheticated } from '../auth/helper'
 import { Modal } from 'react-responsive-modal'
 import { CenterFocusStrong } from '@material-ui/icons'
 import ValetAcceptOrder from './ValetAcceptOrder'
+import ValetBase from './ValetBase'
+import Profile from '../common/profile'
+import OrderCard from '../common/orderCard'
 
 
 
@@ -15,8 +18,10 @@ export default function ValetDashboard(){
 
     const [name,setName] = useState('')
     let {user,token} = isAutheticated('valet')
+    const [orders,setOrders] = useState([])
+    const [message,setMessage] = useState('')
 
-    const [openModal,setOpenModal] = useState(false)
+    // const [openModal,setOpenModal] = useState(false)
 
 
     useEffect(()=>{
@@ -32,7 +37,8 @@ export default function ValetDashboard(){
         socket.on('orderForValet',(data)=>{
 
             console.log(data)
-            setOpenModal(true)
+            setOrders([...orders,data])
+            // setOpenModal(true)
 
             // let answer= prompt('would you accept the order?')
             // let hasAcceptedOrder = false
@@ -45,19 +51,38 @@ export default function ValetDashboard(){
 
         socket.on('messageToValetsRegardingAcceptanceOfOrder',(data)=>{
             console.log(data)
+            setMessage(data.msg)
         })
 
 
 
     },[])
 
+    const handleYes=()=>{
+        socket.emit('responseToServerRegardingOrderFromValet',{hasAcceptedOrder:true,name:user.name})
+    }
+
+    const handleNo=()=>{
+        
+        socket.emit('responseToServerRegardingOrderFromValet',{hasAcceptedOrder:false,name:user.name})
+    }
+
     return(
-        <div>
-            <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <ValetBase>
+            {/* <Modal open={openModal} onClose={() => setOpenModal(false)}>
                 <ValetAcceptOrder/>
-            </Modal>
+            </Modal> */}
             <h1>valet Dashboard</h1>
-        </div>
+            {orders.map(order => {
+                console.log(order)
+                return <OrderCard item={order}
+                    handleYes={handleYes}
+                    handleNo={handleNo}
+                 />
+            })}
+            <h1>{message}</h1>  
+            <Profile></Profile>
+        </ValetBase>
     )
 }
 

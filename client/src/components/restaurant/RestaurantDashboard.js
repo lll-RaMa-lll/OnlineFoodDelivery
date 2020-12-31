@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import { styled, makeStyles } from '@material-ui/core/styles';
 import OrderCard from "../common/orderCard";
-import Profile from "../common/profile";
+// import Profile from "../common/profile";
 import { socket } from '../../socket'
 import { isAutheticated, signout } from '../auth/helper'
 import RestaurantBase from './RestaurantBase'
@@ -72,7 +72,7 @@ export default function RestaurantDashboard({ history }) {
                     handleNo={handleNo}
                 />
             })}
-            <Profile></Profile>
+            {/* <Profile></Profile> */}
         </RestaurantBase>
     );
 };

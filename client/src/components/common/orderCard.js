@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function OrderCard({item,handleYes,handleNo}) {
+export default function OrderCard({item,handleYes,handleNo,visible,setVisible}) {
 
 
     const [accepted, setAccepted] = useState(false)
@@ -54,9 +54,9 @@ export default function OrderCard({item,handleYes,handleNo}) {
 
     let totalAmount = 0
 
+    console.log(item)
 
 
-    
 
 
 
@@ -70,7 +70,7 @@ export default function OrderCard({item,handleYes,handleNo}) {
             <div className={classes.items}>
                 <div>
                     {
-                        item_list.map((item)=>{
+                        item.item_list.map((item)=>{
                             return
                             (<div>
                                 {item.name}
@@ -87,7 +87,7 @@ export default function OrderCard({item,handleYes,handleNo}) {
                 </div>
                 <div>
                     {
-                        item_list.map(item=>{
+                        item.item_list.map(item=>{
                             return(
                                 <div>
                                     x{item.count}
@@ -109,11 +109,11 @@ export default function OrderCard({item,handleYes,handleNo}) {
                 </div>
                 <div>
                     {
-                        item_list.map(item=>{
-                            totalAmount+=(item.price*item.count)
+                        item.item_list.map(item=>{
+                            totalAmount+=(100*item.count)
                             return(
                                 <div>
-                                    ₹ {item.price}
+                                    ₹ 100
                                 </div>
                             )
                         })
@@ -126,12 +126,14 @@ export default function OrderCard({item,handleYes,handleNo}) {
                     </div> */}
                     <div>
                         <div style={{ borderBottom: '1px solid #888' }}><br /></div>
-                            ₹ {totalAmount}
+                            ₹{totalAmount.toString()}
                     </div>
                 </div>
                 <div>
-                    <Button className={classes.buttonsAccept} onClick={handleYes}><Check /></Button>
-                    <Button className={classes.buttonReject} onClick={handleNo}><Close /></Button>
+                   
+                   {visible && <Button className={classes.buttonsAccept} onClick={handleYes}><Check /></Button>}
+                   {visible && <Button className={classes.buttonReject} onClick={handleNo} ><Close /></Button>}
+                    
                 </div>
             </div>
         </div>

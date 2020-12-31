@@ -46,6 +46,7 @@ export default function MenuItem(props) {
     let itemName = (props.name) ? (props.name) : ("Item Name");
     let price = (props.price) ? (props.price) : ("100");
     let description = (props.description) ? (props.description) : ("Description of the item goes here");
+    let {amount,setAmount} = props
     return (
         <div className={classes.item}>
             {props.image != undefined &&
@@ -59,7 +60,7 @@ export default function MenuItem(props) {
                 <p>{description}</p>
             </div>
             <div style={{ position: "relative", top: "2em" }}>
-                <Counter item={props.item} className={classes.quantity}></Counter>
+                <Counter item={props.item} setAmount={setAmount} amount={amount} price={price} className={classes.quantity}></Counter>
             </div>
         </div>
     );

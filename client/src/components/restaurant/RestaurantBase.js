@@ -84,12 +84,16 @@ function RestaurantBase(props) {
                 elevation={8}
                 square="true">
                 <Button
-                    className={classes.button}>
+                    className={classes.button}
+                    onClick={()=>{props.history.push('/restaurant/home')}}
+                    >
                     Home
                     <Home className={classes.icon}></Home>
                 </Button>
                 <Button
-                    className={classes.button}>
+                    className={classes.button}
+                    onClick={()=>{props.history.push('/restaurant/profile')}}
+                    >
                     Profile
                     <AccountCircle className={classes.icon}></AccountCircle>
                 </Button>

@@ -51,16 +51,17 @@ export default function RestaurantDashboard({ history }) {
 
     
     const handleYes=()=>{
-        // setAccepted(true)
+        setVisible(false)
         socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:true})
     }
 
     const handleNo=()=>{
-        // setAccepted(false)
+        setVisible(false)
         socket.emit('responseToServerRegardingOrderFromRestaurant',{isAcceptingOrder:false})
     }
 
     const classes = useStyles();
+    const [visible,setVisible] = useState(true)
     return (
         <RestaurantBase>
 
@@ -70,6 +71,8 @@ export default function RestaurantDashboard({ history }) {
                 return <OrderCard item={order}
                     handleYes={handleYes}
                     handleNo={handleNo}
+                    visible={visible}
+                    setVisible={setVisible}
                 />
             })}
             {/* <Profile></Profile> */}

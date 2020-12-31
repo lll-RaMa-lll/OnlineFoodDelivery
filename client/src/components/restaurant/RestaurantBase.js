@@ -98,7 +98,7 @@ function RestaurantBase(props) {
                     <AccountCircle className={classes.icon}></AccountCircle>
                 </Button>
                 <Button
-                    className={classes.button} onClick={() => setOpenDishes(true)}>
+                    className={classes.button} onClick={() =>props.history.push('/restaurant/dishes')}>
                     Dishes
                     <Fastfood className={classes.icon}></Fastfood>
                 </Button>

@@ -5,7 +5,7 @@ import { Modal } from 'react-responsive-modal'
 import { CenterFocusStrong } from '@material-ui/icons'
 import ValetAcceptOrder from './ValetAcceptOrder'
 import ValetBase from './ValetBase'
-import Profile from '../common/profile'
+// import Profile from '../common/profile'
 import OrderCard from '../common/orderCard'
 
 
@@ -81,7 +81,7 @@ export default function ValetDashboard(){
                  />
             })}
             <h1>{message}</h1>  
-            <Profile></Profile>
+            {/* <Profile></Profile> */}
         </ValetBase>
     )
 }

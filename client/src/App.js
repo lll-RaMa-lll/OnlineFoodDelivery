@@ -22,6 +22,7 @@ import ValetAcceptOrder from "./components/valet/ValetAcceptOrder";
 import RestaurantProfile from './components/restaurant/RestaurantProfile'
 import ValetProfile from './components/valet/ValetProfile.js'
 import UserProfile from "./components/user/UserProfile";
+import Dishes from './components/restaurant/Dishes'
 
 class App extends Component {
 
@@ -58,6 +59,7 @@ class App extends Component {
             <ValetRoute path = '/valet/profile' exact component={ValetProfile} />
             <Route path='/test' exact component={ValetAcceptOrder} />
             <CustomerRoute path='/profile' exact component = {UserProfile} />
+            <RestaurantRoute path = '/restaurant/dishes' exact component = {Dishes} />
           </Switch>
         </div>
 

@@ -72,7 +72,10 @@ export default function OrderPageAuthenticated({ history }) {
                         image={food.image}
                         name={food.name}
                         price={food.price}
-                        description={food.description} />
+                        description={food.description} 
+                        amount={amount}
+                        setAmount={setAmount}
+                        />
                 })}
             </UserBase>
             <div className={classes.lowerBar}>

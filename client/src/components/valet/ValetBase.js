@@ -101,12 +101,16 @@ function ValetBase(props) {
                     <div>
                         <Button
                             hidden={true}
-                            className={classes.button}>
+                            className={classes.button}
+                            onClick={()=>{props.history.push('/valet/home')}}
+                            >
                             Home
                             <Home className={classes.icon}></Home>
                         </Button>
                         <Button
-                            className={classes.button}>
+                            className={classes.button}
+                            onClick={()=>{props.history.push('/valet/profile')}}
+                            >
                             Profile
                             <AccountCircle className={classes.icon}></AccountCircle>
                         </Button>

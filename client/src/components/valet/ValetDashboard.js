@@ -58,12 +58,14 @@ export default function ValetDashboard(){
 
     },[])
 
+    const [visible,setVisible]=useState(true)
     const handleYes=()=>{
+        setVisible(false)
         socket.emit('responseToServerRegardingOrderFromValet',{hasAcceptedOrder:true,name:user.name})
     }
 
     const handleNo=()=>{
-        
+        setVisible(false)
         socket.emit('responseToServerRegardingOrderFromValet',{hasAcceptedOrder:false,name:user.name})
     }
 
@@ -78,6 +80,8 @@ export default function ValetDashboard(){
                 return <OrderCard item={order}
                     handleYes={handleYes}
                     handleNo={handleNo}
+                    visible={visible}
+                    setVisible={setVisible}
                  />
             })}
             <h1>{message}</h1>  

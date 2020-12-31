@@ -27,7 +27,7 @@ export default function Animation(props) {
     width:550px;
     }
     `
-    let time = props.time ? props.time : 10;
+    let time = props.time ? props.time : 15;
     const animation = props =>
         css`
     ${move1} ${time}s linear 1;

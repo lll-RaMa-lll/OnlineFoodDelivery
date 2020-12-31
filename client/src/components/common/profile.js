@@ -1,10 +1,16 @@
-import React, { } from 'react';
+import React, { useState} from 'react';
 import { TextField, createMuiTheme, ThemeProvider, Grid, Divider } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/styles';
 import { AddAPhoto } from '@material-ui/icons';
 import Food from '../../assets/default_food.jpg';
 import { arrayBufferToBase64 } from '../common/helper/imageConversion'
+import {Button} from '@material-ui/core'
+import {updateRestaurant} from '../restaurant/helper/restaurantApiCalls'
+import {updateValet} from '../valet/herper/valetApiCalls'
+import {updateCustomer} from '../user/helper/customerApiCalls'
+import {withRouter} from 'react-router-dom'
+
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
@@ -63,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Profile(props) {
+function Profile(props) {
     let name = props.name ? props.name : "Name";
     let email = props.mail ? props.mail : "mail@email.com";
     let phone = props.phone ? props.phone : "1234567890";
@@ -73,6 +79,124 @@ export default function Profile(props) {
     let totalIncome = props.totalIncome ? props.totalIncome : "10,000";
     let rating = props.rating ? props.rating : 3.4;
     const classes = useStyles();
+
+
+    let {userType,userId,token,history} = props
+
+    const [valuesCustomer,setValuesCustomer] = useState({
+        name:"",
+        email:"",
+        phone:"",
+        error:"",
+        address:""
+
+    })
+
+    const [valuesValet,setValuesValet] = useState({
+        name:"",
+        email:"",
+        phone:"",
+        error:"",
+        details:""
+
+    })
+
+    const [valuesRestaurant,setValuesRestaurant] = useState({
+        formData: new FormData(),
+        error: "",
+        name:"",
+        email:"",
+        phone:"",
+        address:"",
+        details:""
+
+    })
+
+
+    const handleChange = name => event => {
+
+        const value = name === "image" ? event.target.files[0] : event.target.value;
+
+        switch(userType){
+            case "restaurant" :
+
+                valuesRestaurant.formData.set(name, value);
+                setValuesRestaurant({ ...valuesRestaurant, [name]: value });
+                break
+            
+            case "customer" :
+                // let value = event.target.value
+                setValuesCustomer({...valuesCustomer,[name]:value })
+                break
+
+            case "valet" :
+                // let value = event.target.value
+                setValuesValet({...valuesValet, [name]: value })
+                break
+        }
+    };
+
+    const submitHandler = (event)=>{
+        event.preventDefault()
+        if(userType==='restaurant'){
+            updateRestaurant(userId,token,valuesRestaurant.formData)
+                .then(data=>{
+                    if(data.error){
+                        console.log(data.error)
+                        setValuesRestaurant({...valuesRestaurant, error:data.error})
+                    }else{
+                        console.log(data);
+                        history.push('/restaurant/profile')
+                    }
+                })
+
+        }else if(userType==='customer'){
+            let {name,
+                phone,
+                error,
+                address}=valuesCustomer
+            let payload = {name,phone,address}
+            updateCustomer(userId,token,payload)
+                .then(data=>{
+                    if(data.error){
+                        setValuesCustomer({...valuesCustomer, error:data.error})
+                        console.log(data.error)
+                    }else{
+                        console.log(data);
+                        history.push('/profile')
+                    }
+                })
+
+        }else if(userType==='valet'){
+            let {name,
+                email,
+                phone,
+                error,
+                details}= valuesValet
+            }
+            let payload = {name:valuesValet.name,phone:valuesValet.phone,details:valuesValet.details}
+            updateValet(userId,token,payload)
+                .then(data=>{
+                    if(data.error){
+                        setValuesValet({...valuesValet, error:data.error})
+                        console.log(data.error)
+                    }else{
+
+                        console.log(data);
+                        history.push('/valet/profile')
+                    }
+                })
+
+        }
+        
+
+
+
+
+
+
+
+
     return (
         <ThemeProvider theme={theme}>
             <Grid container spacing={2} xs={12}>
@@ -80,6 +204,7 @@ export default function Profile(props) {
                     <div className={classes.root}>
                         <br />
                         <TextField
+                            onChange={handleChange("name")}
                             className={classes.text}
                             id="Name"
                             label="Name"
@@ -88,6 +213,7 @@ export default function Profile(props) {
                         />
                         <br />
                         <TextField
+                            onChange={handleChange("email")}
                             className={classes.text}
                             id="Email"
                             label="Email"
@@ -97,6 +223,7 @@ export default function Profile(props) {
                         />
                         <br />
                         <TextField
+                            onChange={handleChange("phone")}
                             className={classes.text}
                             id="Phone"
                             label="Phone"
@@ -118,7 +245,18 @@ export default function Profile(props) {
                             }
                             <div className={classes.uploadPic}>
                                 <AddAPhoto className={classes.addIcon} />
-                                <b>Change Photo</b>
+                                {/* <b>Change Photo</b> */}
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                    >
+                                    Change Photo
+                                    <input
+                                        type="file"
+                                        onChange={handleChange("image")}
+                                        hidden
+                                    />
+                                </Button>
                             </div>
                         </div>
                     }
@@ -128,6 +266,7 @@ export default function Profile(props) {
                 <div className={classes.root}>
                     <br />
                     <TextField
+                        onChange={handleChange("address")}
                         className={classes.text}
                         id="Address"
                         label="Address"
@@ -145,6 +284,7 @@ export default function Profile(props) {
                     <Grid container xs={12}>
                         <Grid item xs={6}>
                             <TextField
+                                onChange={handleChange("details")}
                                 className={classes.text}
                                 id="Details"
                                 label="Details"
@@ -177,6 +317,20 @@ export default function Profile(props) {
                     </Grid>
                 </div>
             }
-        </ThemeProvider >
+        <span style={{display:"flex",justifyContent:"center"}}>
+            <Button 
+                color='primary'
+                variant='contained'
+                onClick={submitHandler}
+            >
+                Update Profile
+            </Button>
+        </span>
+        </ThemeProvider>
     );
 }
+
+
+
+
+export default withRouter(Profile)

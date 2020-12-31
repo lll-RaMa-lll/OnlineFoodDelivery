@@ -102,12 +102,16 @@ function UserBase(props) {
                         <div>
                             <Button
                                 hidden={true}
-                                className={classes.button}>
+                                className={classes.button}
+                                onClick={()=>{props.history.push('/home')}}
+                                >
                                 Home
                             <Home className={classes.icon}></Home>
                             </Button>
                             <Button
-                                className={classes.button}>
+                                className={classes.button}
+                                onClick={()=>{props.history.push('/profile')}}
+                                >
                                 Profile
                             <AccountCircle className={classes.icon}></AccountCircle>
                             </Button>

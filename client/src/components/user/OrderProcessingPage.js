@@ -3,6 +3,7 @@ import { socket } from '../../socket'
 import { Button } from '@material-ui/core'
 import { loadCart, cartEmpty } from '../common/helper/carthelper'
 import UserBase from './UserBase'
+import Animation from '../common/animation'
 
 export default function OrderProcessingPage() {
 
@@ -48,6 +49,7 @@ export default function OrderProcessingPage() {
                     <h1>Valet assigned</h1>
                 </div>
             }
+            <Animation></Animation>
         </UserBase>
     )
 

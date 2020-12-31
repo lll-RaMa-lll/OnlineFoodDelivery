@@ -21,7 +21,7 @@ const useStyles = makeStyles({
         color: "#FF5544"
     }
 });
-export default function Counter({item}) {
+export default function Counter({item,price,amount,setAmount}) {
     const [count, setCount] = useState(0);
     const classes = useStyles();
 
@@ -29,11 +29,13 @@ export default function Counter({item}) {
     item={price:food.price,restaurant,customer,foodId:food._id}
     function decrease() {
         setCount(prevCount => (prevCount < 1) ? 0 : prevCount - 1)
+        setAmount(amount-price)
         removeItemFromCart(food._id)
 
     }
     function increase() {
         setCount(prevCount => prevCount + 1)
+        setAmount(amount+price)
         addItemToCart(item)
     }
 

@@ -55,8 +55,10 @@ exports.createFood = (req, res) => {
     //save to the DB
     food.save((err, food) => {
       if (err) {
+        console.log(err)
         res.status(400).json({
           error: "Saving food in DB failed"
+          
         });
       }
       res.json(food);
